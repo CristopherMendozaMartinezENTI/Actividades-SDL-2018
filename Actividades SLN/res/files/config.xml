@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<enemylist>
+<enemy name="Knight">
+ <vitality>100</vitality>
+ <damage>10</damage>
+ <defense>5</defense>
+ <attackfrequency>2</attackfrequency>
+ <exp>1000</exp>
+ <weapons>
+  <weapon name ="Sword">
+    <type>melee</type>
+    <range>2</range>
+  </weapon>
+  <weapon name ="Shield">
+    <type>melee</type>
+    <range>10</range>
+  </weapon>
+ </weapons>
+</enemy>
+
+<enemy name="DragonWarrior">
+ <vitality>500</vitality>
+ <damage>50</damage>
+ <defense>10</defense>
+ <attackfrequency>1</attackfrequency>
+ <exp>2000</exp>
+ <weapons>
+  <weapon name ="Axe">
+   <type>melee</type>
+   <range>1</range>
+  </weapon>
+  <weapon name ="Spear">
+   <type>longRange</type>
+   <range>10</range>
+  </weapon>
+ </weapons>  
+</enemy>
+
+<enemy name="Thief">
+ <vitality>50</vitality>
+ <damage>100</damage>
+ <defense>2</defense>
+ <attackfrequency>5</attackfrequency>
+ <exp>500</exp>
+ <weapons>
+  <weapon name ="Knife">
+   <type>melee</type>
+   <range>1</range>
+  </weapon>
+  <weapon name ="SmokeBomb">
+   <type>longRange</type>
+   <range>20</range>
+  </weapon>
+ </weapons>
+</enemy>
+
+<enemy name="Elf">
+ <vitality>20</vitality>
+ <damage>5</damage>
+ <defense>5</defense>
+ <attackfrequency>10</attackfrequency>
+ <exp>6000</exp>
+ <weapons>
+  <weapon name ="Bow">
+   <type>longRange</type>
+   <range>50</range>
+  </weapon>
+   <weapon name ="Staff">
+   <type>longRange</type>
+   <range>30</range>
+  </weapon>
+ </weapons>
+</enemy>
+</enemylist>
