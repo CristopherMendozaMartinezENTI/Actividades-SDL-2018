@@ -21,6 +21,10 @@
   <ItemGroup>
     <ClCompile Include="SDL_AA1_02.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Collisions.h" />
+    <ClInclude Include="Types.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{2DB41353-6DAA-437E-BA76-8CC8FF2DE089}</ProjectGuid>
