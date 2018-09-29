@@ -49,16 +49,37 @@ int main(int, char*[])
 	SDL_Rect playerTarget{ 0, 0, 100, 100 };
 
 	// --- TEXT ---
-	TTF_Font *font{ TTF_OpenFont("../../res/ttf/saiyan.ttf", 140) };
+	TTF_Font *font{ TTF_OpenFont("../../res/ttf/saiyan.ttf", 80) };
 	if (font == nullptr) throw "No es pot inicialitzar SDL_ttf";
 	SDL_Surface *tmpSurf{ TTF_RenderText_Blended(font, "Anem a buscar, la bola de drac", SDL_Color{0,0,0,0}) };
 	if (tmpSurf == nullptr) throw "No es pot crear SDL surface";
 	SDL_Texture *textTexture{ SDL_CreateTextureFromSurface(m_renderer, tmpSurf) };
 	SDL_Rect textRect{ (SCREEN_WIDTH - tmpSurf->w) / 2, 50, tmpSurf->w, tmpSurf->h };
 
-	tmpSurf = { TTF_RenderText_Blended(font, "Anem a buscar, la bola de drac", SDL_Color{255,255,255,0}) };
-	SDL_Texture *textHover{ SDL_CreateTextureFromSurface(m_renderer, tmpSurf) };
-	SDL_Texture *textAux{ SDL_CreateTextureFromSurface(m_renderer, tmpSurf) };
+	//Play
+	SDL_Surface *tmpSurfPlay{ TTF_RenderText_Blended(font, "Play", SDL_Color{ 0,0,0,0 }) };
+	SDL_Texture *playTexture{ SDL_CreateTextureFromSurface(m_renderer, tmpSurfPlay) };
+	SDL_Rect playButtonRect{ (SCREEN_WIDTH - tmpSurf->w) / 2, 500, tmpSurfPlay->w, tmpSurfPlay->h };
+	tmpSurfPlay = { TTF_RenderText_Blended(font, "Play", SDL_Color{ 255,255,255,0 }) };
+	SDL_Texture *playHover{ SDL_CreateTextureFromSurface(m_renderer, tmpSurfPlay) };
+	SDL_Texture *playAux  {SDL_CreateTextureFromSurface(m_renderer, tmpSurfPlay)};
+	
+	//Sound OFF
+	SDL_Surface *tmpSurfSound{ TTF_RenderText_Blended(font, "Sound Off", SDL_Color{ 0,0,0,0 }) };
+	SDL_Texture *soundTexture{ SDL_CreateTextureFromSurface(m_renderer, tmpSurfSound) };
+	SDL_Rect soundButtonRect{ (SCREEN_WIDTH - tmpSurf->w) / 2, 700, tmpSurfSound->w, tmpSurfSound->h };
+	tmpSurfPlay = { TTF_RenderText_Blended(font, "Sound Off", SDL_Color{ 255,255,255,0 }) };
+	SDL_Texture *soundHover{ SDL_CreateTextureFromSurface(m_renderer, tmpSurfSound) };
+	SDL_Texture *soundAux{ SDL_CreateTextureFromSurface(m_renderer, tmpSurfSound) };
+
+	//Exit
+	SDL_Surface *tmpSurfExit{ TTF_RenderText_Blended(font, "Sound Off", SDL_Color{ 0,0,0,0 }) };
+	SDL_Texture *exitTexture{ SDL_CreateTextureFromSurface(m_renderer, tmpSurfExit) };
+	SDL_Rect exitButtonRect{ (SCREEN_WIDTH - tmpSurf->w) / 2, 900, tmpSurfExit->w, tmpSurfExit->h };
+	tmpSurfPlay = { TTF_RenderText_Blended(font, "Sound Off", SDL_Color{ 255,255,255,0 }) };
+	SDL_Texture *exitHover{ SDL_CreateTextureFromSurface(m_renderer, tmpSurfExit) };
+	SDL_Texture *exitAux{ SDL_CreateTextureFromSurface(m_renderer, tmpSurfExit) };
+
 
 	// --- AUDIO ---
 
@@ -77,10 +98,6 @@ int main(int, char*[])
 				if (event.key.keysym.sym == SDLK_ESCAPE) isRunning = false;
 				break;
 			case SDL_MOUSEMOTION:
-				if (Collision(Vec2{ event.motion.x, event.motion.y }, textRect))
-					textAux = textHover;
-				else 
-					textAux = textTexture;
 				playerTarget.x = event.motion.x - 150;
 				playerTarget.y = event.motion.y - 90;
 				break;
@@ -91,6 +108,22 @@ int main(int, char*[])
 		// UPDATE
 		playerRect.x += (playerTarget.x - playerRect.x) / 5;
 		playerRect.y += (playerTarget.y - playerRect.y) / 5;
+
+		//Cambio de Textura Play 
+		if (Collision(Vec2{ event.motion.x, event.motion.y }, playButtonRect))
+			playAux = playHover;
+		else
+			playAux = playTexture;
+		//Cambio de Textura Sound Off
+		if (Collision(Vec2{ event.motion.x, event.motion.y }, soundButtonRect))
+			soundAux = soundHover;
+		else
+			soundAux = soundTexture;
+		//Cambio de Textura Sound Off
+		if (Collision(Vec2{ event.motion.x, event.motion.y }, exitButtonRect))
+			exitAux = exitHover;
+		else
+			exitAux = exitTexture;
 
 		// DRAW
 		SDL_RenderClear(m_renderer);
