@@ -13,5 +13,5 @@ Rect getRectComponents(SDL_Rect rect) {
 
 bool Collision(Vec2 vec, SDL_Rect rect)
 {
-	return (vec.x - (rect.x + rect.w / 2) < (rect.w / 2) && (vec.y) - (rect.y + rect.h) / 2) < (rect.h / 2);
+	return ((vec.x - (rect.x + rect.w / 2) < (rect.w / 2)) && ((vec.y - (rect.y + rect.h) / 2) < (rect.h / 2)));
 }
