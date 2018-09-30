@@ -181,6 +181,7 @@ int main(int, char*[])
 	TTF_CloseFont(font);
 	IMG_Quit();
 	TTF_Quit();
+	Mix_Quit();
 	SDL_DestroyRenderer(m_renderer);
 	SDL_DestroyWindow(m_window);
 
