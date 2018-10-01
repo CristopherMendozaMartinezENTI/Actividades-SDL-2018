@@ -171,17 +171,28 @@ int main(int, char*[])
 		SDL_RenderCopy(m_renderer, playerTexture, nullptr, &playerRect);
 		//Text
 		SDL_RenderCopy(m_renderer, textTexture, nullptr, &textRect);
+		//Play Button
+		SDL_RenderCopy(m_renderer, playTexture, nullptr, &playerRect);
+		//Sound Botton
+		SDL_RenderCopy(m_renderer, soundOffTexture, nullptr, &soundButtonRect);
+		SDL_RenderCopy(m_renderer, soundOnTexture, nullptr, &soundButtonRect);
+		//Exit
+		SDL_RenderCopy(m_renderer, exitTexture, nullptr, &exitButtonRect);
 		SDL_RenderPresent(m_renderer);
 	}
 
 	// --- DESTROY ---
 	SDL_DestroyTexture(bgTexture);
 	SDL_DestroyTexture(playerTexture);
+	SDL_DestroyTexture(textTexture);
+	SDL_DestroyTexture(soundOffTexture);
+	SDL_DestroyTexture(soundOnTexture);
+	SDL_DestroyTexture(exitTexture);
 	SDL_FreeSurface(tmpSurf);
 	TTF_CloseFont(font);
 	IMG_Quit();
 	TTF_Quit();
-	Mix_Quit();
+	//Mix_Quit();
 	SDL_DestroyRenderer(m_renderer);
 	SDL_DestroyWindow(m_window);
 
