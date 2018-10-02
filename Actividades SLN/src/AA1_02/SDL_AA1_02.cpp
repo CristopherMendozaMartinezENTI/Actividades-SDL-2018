@@ -57,7 +57,7 @@ int main(int, char*[])
 	SDL_Rect bgRect{ 0,0,SCREEN_WIDTH, SCREEN_HEIGHT };
 
 	//In game Backgroung
-	SDL_Texture* gameBgTexture{ IMG_LoadTexture(m_renderer, "../../res/img/bgCastle.jpg") };
+	SDL_Texture* gameBgTexture{ IMG_LoadTexture(m_renderer, "../../res/img/bgHome.png") };
 	if (bgTexture == nullptr) throw "Error: bgTexture init";
 	SDL_Rect gameBgRect{ 0,0,SCREEN_WIDTH, SCREEN_HEIGHT };
 
@@ -66,12 +66,10 @@ int main(int, char*[])
 #pragma region Cursor
 
 	//Cursor
-	SDL_Texture *playerTexture{ IMG_LoadTexture(m_renderer, "../../res/img/kintoun.png") };
-	if (playerTexture == nullptr) throw "Error: platerTexture init";
-	SDL_Rect playerRect{ 0, 0, 350, 190 };
-	SDL_Rect playerTarget{ 0, 0, 100, 100 };
-#pragma endregion
-
+	SDL_Texture *cursorTexture{ IMG_LoadTexture(m_renderer, "../../res/img/kintoun.png") };
+	if (cursorTexture == nullptr) throw "Error: platerTexture init";
+	SDL_Rect cursorRect{ 0, 0, 350, 190 };
+	SDL_Rect cursorTarget{ 0, 0, 100, 100 };
 #pragma endregion
 
 #pragma region Title Text
@@ -138,7 +136,7 @@ int main(int, char*[])
 
 	//Title Music
 	Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 640);
-	Mix_Music *music = Mix_LoadMUS("../../res/au/mainTheme.mp3");
+	Mix_Music *music = Mix_LoadMUS("../../res/au/mainThemeCatala.mp3");
 	if (music == NULL) return false;
 	Mix_PlayMusic(music, 100);
 
@@ -147,6 +145,7 @@ int main(int, char*[])
 // --- GAME LOOP ---
 	SDL_Event event;
 	gameStates state = MENU;
+	Vec2 mouseAxis;
 	bool isRunning = true;
 	bool mouseClicked = false;
 	bool playMenuMusic = false;
@@ -162,8 +161,8 @@ int main(int, char*[])
 				if (event.key.keysym.sym == SDLK_ESCAPE) isRunning = false;
 				break;
 			case SDL_MOUSEMOTION:
-				playerTarget.x = event.motion.x - 150;
-				playerTarget.y = event.motion.y - 90;
+				mouseAxis.x = event.motion.x;
+				mouseAxis.y = event.motion.y;
 				break;
 			case SDL_MOUSEBUTTONDOWN:
 				if (event.button.button = SDL_BUTTON_LEFT)
@@ -175,14 +174,18 @@ int main(int, char*[])
 
 // --- UPDATE ---
 
+	//Mouse at the center of the cursor 
+	cursorTarget.x = mouseAxis.x - 150;
+	cursorTarget.y = mouseAxis.y - 90;
 	//Linear interpolation to make the cursor movement more smooth
-	playerRect.x += (playerTarget.x - playerRect.x) / 5;
-	playerRect.y += (playerTarget.y - playerRect.y) / 5;
+	cursorRect.x += (cursorTarget.x - cursorRect.x) / 5;
+	cursorRect.y += (cursorTarget.y - cursorRect.y) / 5;
 
 #pragma region Menu: Button Colliders
 
 		//Changing Play Button Texture
-		if (Collision(Vec2{ event.motion.x, event.motion.y }, playButtonRect)) {
+		if (Collision(mouseAxis, Rect(playButtonRect)))
+		{
 			playAux = playHover;
 			if (mouseClicked)
 			{
@@ -194,7 +197,7 @@ int main(int, char*[])
 			playAux = playTexture;
 
 		//Changing Sound Off Texture
-		if (Collision(Vec2{ event.motion.x, event.motion.y }, soundButtonRect))
+		if (Collision(mouseAxis, Rect(soundButtonRect)))
 		{
 			if (mouseClicked)
 			{
@@ -214,7 +217,7 @@ int main(int, char*[])
 		}
 		
 		//Changing Exit Button Texture
-		if (Collision(Vec2{ event.motion.x, event.motion.y }, exitButtonRect)) {
+		if (Collision(mouseAxis, Rect(exitButtonRect))) {
 	        exitAux = exitHover;
 			if(mouseClicked) isRunning = false;
 		}
@@ -230,7 +233,7 @@ int main(int, char*[])
 			//Background
 			SDL_RenderCopy(m_renderer, bgTexture, nullptr, &bgRect);
 			//Player
-			SDL_RenderCopy(m_renderer, playerTexture, nullptr, &playerRect);
+			SDL_RenderCopy(m_renderer, cursorTexture, nullptr, &cursorRect);
 			//Text
 			SDL_RenderCopy(m_renderer, textTexture, nullptr, &textRect);
 			//Play Button
@@ -254,7 +257,7 @@ int main(int, char*[])
 
 // --- DESTROY ---
 	SDL_DestroyTexture(bgTexture);
-	SDL_DestroyTexture(playerTexture);
+	SDL_DestroyTexture(cursorTexture);
 	SDL_DestroyTexture(textTexture);
 	SDL_DestroyTexture(soundOffTexture);
 	SDL_DestroyTexture(soundOnTexture);
