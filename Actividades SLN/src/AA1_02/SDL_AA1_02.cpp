@@ -70,6 +70,7 @@ int main(int, char*[])
 	if (playerTexture == nullptr) throw "Error: platerTexture init";
 	SDL_Rect playerRect{ 0, 0, 350, 190 };
 	SDL_Rect playerTarget{ 0, 0, 100, 100 };
+#pragma endregion
 
 #pragma endregion
 
