@@ -10,6 +10,12 @@
 #define SCREEN_WIDTH 1920
 #define SCREEN_HEIGHT 1080
 
+enum gameStates {
+	MENU,
+	INGAME,
+	MAX
+};
+
 int main(int, char*[])
 {
 	// --- INIT SDL ---
@@ -47,21 +53,31 @@ int main(int, char*[])
 	if (bgTexture == nullptr) throw "Error: bgTexture init";
 	SDL_Rect bgRect{ 0,0,SCREEN_WIDTH, SCREEN_HEIGHT };
 
+	   //In game Backgroun
+	SDL_Texture* gameBgTexture{ IMG_LoadTexture(m_renderer, "../../res/img/bgCastle.jpg") };
+	if (bgTexture == nullptr) throw "Error: bgTexture init";
+	SDL_Rect gameBgRect{ 0,0,SCREEN_WIDTH, SCREEN_HEIGHT };
+
 	//-->Animated Sprite ---
 
-	//-->Player ---
+	//-->Cursor ---
+#pragma region Cursor
 	SDL_Texture *playerTexture{ IMG_LoadTexture(m_renderer, "../../res/img/kintoun.png") };
 	if (playerTexture == nullptr) throw "Error: platerTexture init";
 	SDL_Rect playerRect{ 0, 0, 350, 190 };
 	SDL_Rect playerTarget{ 0, 0, 100, 100 };
+#pragma endregion
 
-	// --- TEXT ---
+	//-->TITLE TEXT ---
+#pragma region Title Text
 	TTF_Font *font{ TTF_OpenFont("../../res/ttf/saiyan.ttf", 80) };
 	if (font == nullptr) throw "No es pot inicialitzar SDL_ttf";
 	SDL_Surface *tmpSurf{ TTF_RenderText_Blended(font, "Anem a buscar, la bola de drac", SDL_Color{255,128,0,0}) };
 	if (tmpSurf == nullptr) throw "No es pot crear SDL surface";
 	SDL_Texture *textTexture{ SDL_CreateTextureFromSurface(m_renderer, tmpSurf) };
 	SDL_Rect textRect{ (SCREEN_WIDTH - tmpSurf->w) / 2, 50, tmpSurf->w, tmpSurf->h };
+
+#pragma endregion
 
 	//Play 
 #pragma region Play Button 
@@ -105,6 +121,7 @@ int main(int, char*[])
 
 	// --- GAME LOOP ---
 	SDL_Event event;
+	gameStates state = MENU;
 	bool isRunning = true;
 	bool mouseClicked = false;
 	bool playMusic = false;
@@ -135,11 +152,19 @@ int main(int, char*[])
 		playerRect.x += (playerTarget.x - playerRect.x) / 5;
 		playerRect.y += (playerTarget.y - playerRect.y) / 5;
 
-		//Cambio de Textura Play 
-		if (Collision(Vec2{ event.motion.x, event.motion.y }, playButtonRect)) playAux = playHover;
-		else playAux = playTexture;
+		//Changing Play Button Texture
+		if (Collision(Vec2{ event.motion.x, event.motion.y }, playButtonRect)) {
+			playAux = playHover;
+			if (mouseClicked)
+			{
+				mouseClicked = false;
+				state = INGAME;
+			}
+		}
+		else 
+			playAux = playTexture;
 
-		//Cambio de Textura Sound Off
+		//Changing Sound Off Texture
 		if (Collision(Vec2{ event.motion.x, event.motion.y }, soundButtonRect))
 		{
 			if (mouseClicked)
@@ -159,7 +184,7 @@ int main(int, char*[])
 			else soundOffAux = soundOffTexture;
 		}
 		
-		//Cambio de Textura Exit
+		//Changing Exit Button Texture
 		if (Collision(Vec2{ event.motion.x, event.motion.y }, exitButtonRect)) {
 	        exitAux = exitHover;
 			if(mouseClicked) isRunning = false;
@@ -167,19 +192,31 @@ int main(int, char*[])
 		else exitAux = exitTexture;
 
 		// DRAW
-		SDL_RenderClear(m_renderer);
-		//Background
-		SDL_RenderCopy(m_renderer, bgTexture, nullptr, &bgRect);
-		//Player
-		SDL_RenderCopy(m_renderer, playerTexture, nullptr, &playerRect);
-		//Text
-		SDL_RenderCopy(m_renderer, textTexture, nullptr, &textRect);
-		//Play Button
-		SDL_RenderCopy(m_renderer, playAux, nullptr, &playButtonRect);
-		//Sound Botton
-		SDL_RenderCopy(m_renderer, soundOffAux, nullptr, &soundButtonRect);
-		//Exit
-		SDL_RenderCopy(m_renderer, exitAux, nullptr, &exitButtonRect);
+		switch (state) {
+			case MENU:
+				SDL_RenderClear(m_renderer);
+				//Background
+				SDL_RenderCopy(m_renderer, bgTexture, nullptr, &bgRect);
+				//Player
+				SDL_RenderCopy(m_renderer, playerTexture, nullptr, &playerRect);
+				//Text
+				SDL_RenderCopy(m_renderer, textTexture, nullptr, &textRect);
+				//Play Button
+				SDL_RenderCopy(m_renderer, playAux, nullptr, &playButtonRect);
+				//Sound Botton
+				SDL_RenderCopy(m_renderer, soundOffAux, nullptr, &soundButtonRect);
+				//Exit
+				SDL_RenderCopy(m_renderer, exitAux, nullptr, &exitButtonRect);
+				break;
+			case INGAME:
+				SDL_RenderCopy(m_renderer, gameBgTexture, nullptr, &gameBgRect);
+			default:
+				break;
+		}
+
+		//Hide Mouse 
+		SDL_ShowCursor(SDL_DISABLE);
+
 		SDL_RenderPresent(m_renderer);
 	}
 
