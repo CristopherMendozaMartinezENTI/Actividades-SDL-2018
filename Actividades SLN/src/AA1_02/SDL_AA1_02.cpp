@@ -9,6 +9,7 @@
 
 #define SCREEN_WIDTH 1920
 #define SCREEN_HEIGHT 1080
+#define FPS 60
 
 enum gameStates {
 	MENU,
@@ -44,7 +45,7 @@ int main(int, char*[])
 
 	//-->SDL_Mix
 	const Uint8 soundFlags{ MIX_INIT_MP3 };
-	if (!(IMG_Init(soundFlags) & soundFlags)) throw "Error: SDL_image init";
+	if (!(Mix_Init(soundFlags) & soundFlags)) throw "Error: SDL_image init";
 
 #pragma endregion 	
 
@@ -131,14 +132,30 @@ int main(int, char*[])
 #pragma endregion
 
 //-->Animated Sprite ---
+	SDL_Texture *playerTexture{ IMG_LoadTexture(m_renderer, "../../res/img/sp01.png") };
+	SDL_Rect playerRect, playerPosition;
+	int textWidth, textHeight, frameWidth, frameHeight;
+	SDL_QueryTexture(playerTexture, NULL, NULL, &textWidth, &textHeight);
+	frameWidth = textWidth / 6;
+	frameHeight = textHeight / 1;
+	playerPosition.x = playerPosition.y = 0;
+	playerRect.x = playerRect.y = 0;
+	playerPosition.h = playerRect.h = frameHeight;
+	playerPosition.w = playerRect.w = frameHeight;
+	int frameTime = 0;
 
 #pragma region Audio
 
+	if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 1024) == -1) {
+		throw "Unable to open SDL_Mixer sound systems";
+	}
+
 	//Title Music
 	Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 640);
-	Mix_Music *music = Mix_LoadMUS("../../res/au/mainThemeCatala.mp3");
-	if (music == NULL) return false;
-	Mix_PlayMusic(music, 100);
+	Mix_Music *menuMusic = Mix_LoadMUS("../../res/au/mainThemeCatala.mp3");
+	if (menuMusic == NULL) return false;
+	Mix_VolumeMusic(MIX_MAX_VOLUME / 2);
+	Mix_PlayMusic(menuMusic, -1);
 
 #pragma endregion 
 
@@ -174,7 +191,17 @@ int main(int, char*[])
 
 // --- UPDATE ---
 
-	//Mouse at the center of the cursor 
+	//Player Sprite Movement
+	frameTime++;
+	if (FPS / frameTime <= 9)
+	{
+		frameTime = 0;
+		playerRect.x += frameWidth;
+		if (playerRect.x >= textWidth)
+			playerRect.x = 0;
+	}
+
+	//Putting the Mouse at the center of the cursor 
 	cursorTarget.x = mouseAxis.x - 150;
 	cursorTarget.y = mouseAxis.y - 90;
 	//Linear interpolation to make the cursor movement more smooth
@@ -203,8 +230,8 @@ int main(int, char*[])
 			{
 				mouseClicked = false;
 				playMenuMusic = !playMenuMusic;
-				if(playMenuMusic) Mix_HaltMusic();
-				else Mix_PlayMusic(music, 100);
+				if(playMenuMusic) Mix_PauseMusic();
+				else Mix_PlayMusic(menuMusic, 100);
 
 			}
 			if(playMenuMusic) soundOffAux = soundOnHover;
@@ -226,13 +253,16 @@ int main(int, char*[])
 #pragma endregion
 
 // --- DRAW ---
+	SDL_RenderClear(m_renderer);
+
+#pragma region State Machine
+
 	switch (state) 
 	{
 		case MENU:
-			SDL_RenderClear(m_renderer);
 			//Background
 			SDL_RenderCopy(m_renderer, bgTexture, nullptr, &bgRect);
-			//Player
+			//Cursor
 			SDL_RenderCopy(m_renderer, cursorTexture, nullptr, &cursorRect);
 			//Text
 			SDL_RenderCopy(m_renderer, textTexture, nullptr, &textRect);
@@ -244,16 +274,24 @@ int main(int, char*[])
 			SDL_RenderCopy(m_renderer, exitAux, nullptr, &exitButtonRect);
 			break;
 		case INGAME:
+			//Background
 			SDL_RenderCopy(m_renderer, gameBgTexture, nullptr, &gameBgRect);
+			//Animated Player Sprite
+			SDL_RenderCopy(m_renderer, playerTexture, &playerRect, &playerPosition);
 			break;
 		default:
 			break;
 	}
-		//Hide Mouse 
-		SDL_ShowCursor(SDL_DISABLE);
-		//Update the screen
-		SDL_RenderPresent(m_renderer);
+
+#pragma endregion 
+
+	//Hide Mouse 
+	SDL_ShowCursor(SDL_DISABLE);
+	//Update the screen
+	SDL_RenderPresent(m_renderer);
 }
+
+#pragma region Close SDL
 
 // --- DESTROY ---
 	SDL_DestroyTexture(bgTexture);
@@ -264,14 +302,15 @@ int main(int, char*[])
 	SDL_DestroyTexture(exitTexture);
 	SDL_FreeSurface(tmpSurf);
 	TTF_CloseFont(font);
+	Mix_CloseAudio();
 	IMG_Quit();
 	TTF_Quit();
-	//Mix_Quit();
 	SDL_DestroyRenderer(m_renderer);
 	SDL_DestroyWindow(m_window);
-
-// --- QUIT ---
 	SDL_Quit();
+	Mix_Quit();
+
+#pragma endregion 
 
 	return 0;
 }
