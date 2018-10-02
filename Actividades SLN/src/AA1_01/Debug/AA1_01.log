@@ -1,0 +1,14 @@
+﻿  main.cpp
+c:\users\cristopher.mendoza\desktop\activadades sln\actividades sln\dep\inc\xml\rapidxml_iterators.hpp(25): error C2039: 'bidirectional_iterator_tag': is not a member of 'std'
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.15.26726\include\new(16): note: see declaration of 'std'
+  c:\users\cristopher.mendoza\desktop\activadades sln\actividades sln\dep\inc\xml\rapidxml_iterators.hpp(91): note: see reference to class template instantiation 'rapidxml::node_iterator<Ch>' being compiled
+c:\users\cristopher.mendoza\desktop\activadades sln\actividades sln\dep\inc\xml\rapidxml_iterators.hpp(25): error C3646: 'iterator_category': unknown override specifier
+c:\users\cristopher.mendoza\desktop\activadades sln\actividades sln\dep\inc\xml\rapidxml_iterators.hpp(25): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\cristopher.mendoza\desktop\activadades sln\actividades sln\dep\inc\xml\rapidxml_iterators.hpp(104): error C2039: 'bidirectional_iterator_tag': is not a member of 'std'
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.15.26726\include\new(16): note: see declaration of 'std'
+  c:\users\cristopher.mendoza\desktop\activadades sln\actividades sln\dep\inc\xml\rapidxml_iterators.hpp(170): note: see reference to class template instantiation 'rapidxml::attribute_iterator<Ch>' being compiled
+c:\users\cristopher.mendoza\desktop\activadades sln\actividades sln\dep\inc\xml\rapidxml_iterators.hpp(104): error C3646: 'iterator_category': unknown override specifier
+c:\users\cristopher.mendoza\desktop\activadades sln\actividades sln\dep\inc\xml\rapidxml_iterators.hpp(104): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\cristopher.mendoza\desktop\activadades sln\actividades sln\res\file\config.xml(1): error C2059: syntax error: '<'
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.15.26726\include\iostream(14): error C2143: syntax error: missing ';' before '{'
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.15.26726\include\iostream(14): error C2447: '{': missing function header (old-style formal list?)

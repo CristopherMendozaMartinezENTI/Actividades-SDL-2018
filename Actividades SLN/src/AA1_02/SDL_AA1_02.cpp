@@ -39,6 +39,7 @@ int main(int, char*[])
 	Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 640);
 	Mix_Music *music = Mix_LoadMUS("../../res/au/mainTheme.mp3");
 	if (music == NULL) return false;
+	Mix_PlayMusic(music, 100);
 
 	// --- SPRITES ---
 		//Background
@@ -57,14 +58,14 @@ int main(int, char*[])
 	// --- TEXT ---
 	TTF_Font *font{ TTF_OpenFont("../../res/ttf/saiyan.ttf", 80) };
 	if (font == nullptr) throw "No es pot inicialitzar SDL_ttf";
-	SDL_Surface *tmpSurf{ TTF_RenderText_Blended(font, "Anem a buscar, la bola de drac", SDL_Color{0,0,0,0}) };
+	SDL_Surface *tmpSurf{ TTF_RenderText_Blended(font, "Anem a buscar, la bola de drac", SDL_Color{255,128,0,0}) };
 	if (tmpSurf == nullptr) throw "No es pot crear SDL surface";
 	SDL_Texture *textTexture{ SDL_CreateTextureFromSurface(m_renderer, tmpSurf) };
 	SDL_Rect textRect{ (SCREEN_WIDTH - tmpSurf->w) / 2, 50, tmpSurf->w, tmpSurf->h };
 
 	//Play 
 #pragma region Play Button 
-	tmpSurf = { TTF_RenderText_Blended(font, "Play", SDL_Color{ 0,0,0,0 }) };
+	tmpSurf = { TTF_RenderText_Blended(font, "Play", SDL_Color{ 255,128,0,0 }) };
 	SDL_Texture *playTexture{ SDL_CreateTextureFromSurface(m_renderer, tmpSurf) };
 	SDL_Rect playButtonRect{ (SCREEN_WIDTH - tmpSurf->w) / 2, 500, tmpSurf->w, tmpSurf->h };
 	tmpSurf = { TTF_RenderText_Blended(font, "Play", SDL_Color{ 255,255,255,0 }) };
@@ -74,7 +75,7 @@ int main(int, char*[])
 
 	//Sound OFF
 #pragma region Sound Button
-	tmpSurf= { TTF_RenderText_Blended(font, "Sound Off", SDL_Color{ 0,0,0,0 }) };
+	tmpSurf= { TTF_RenderText_Blended(font, "Sound Off", SDL_Color{ 255,128,0,0 }) };
 	SDL_Texture *soundOffTexture{ SDL_CreateTextureFromSurface(m_renderer, tmpSurf) };
 	SDL_Rect soundButtonRect{ (SCREEN_WIDTH - tmpSurf->w) / 2, 700, tmpSurf->w, tmpSurf->h };
 	tmpSurf = { TTF_RenderText_Blended(font, "Sound Off", SDL_Color{ 255,255,255,0 }) };
@@ -84,7 +85,7 @@ int main(int, char*[])
 
 	//Sound On
 #pragma region Sound Button
-	tmpSurf = { TTF_RenderText_Blended(font, "Sound On", SDL_Color{ 0,0,0,0 }) };
+	tmpSurf = { TTF_RenderText_Blended(font, "Sound On", SDL_Color{ 255,128,0,0 }) };
 	SDL_Texture *soundOnTexture{ SDL_CreateTextureFromSurface(m_renderer, tmpSurf) };
 	tmpSurf = { TTF_RenderText_Blended(font, "Sound On", SDL_Color{ 255,255,255,0 }) };
 	SDL_Texture *soundOnHover{ SDL_CreateTextureFromSurface(m_renderer, tmpSurf) };
@@ -92,7 +93,7 @@ int main(int, char*[])
 
 	//Exit
 #pragma region Exit Button
-	tmpSurf = { TTF_RenderText_Blended(font, "Exit", SDL_Color{ 0,0,0,0 }) };
+	tmpSurf = { TTF_RenderText_Blended(font, "Exit", SDL_Color{ 255,128,0,0 }) };
 	SDL_Texture *exitTexture{ SDL_CreateTextureFromSurface(m_renderer, tmpSurf) };
 	SDL_Rect exitButtonRect{ (SCREEN_WIDTH - tmpSurf->w) / 2, 900, tmpSurf->w, tmpSurf->h };
 	tmpSurf = { TTF_RenderText_Blended(font, "Exit", SDL_Color{ 255,255,255,0 }) };
@@ -106,7 +107,7 @@ int main(int, char*[])
 	SDL_Event event;
 	bool isRunning = true;
 	bool mouseClicked = false;
-	bool playMusic = true;
+	bool playMusic = false;
 	while (isRunning) {
 
 		// HANDLE EVENTS
@@ -139,15 +140,17 @@ int main(int, char*[])
 		else playAux = playTexture;
 
 		//Cambio de Textura Sound Off
-		if (Collision(Vec2{ event.motion.x, event.motion.y }, soundButtonRect)) {
-				
+		if (Collision(Vec2{ event.motion.x, event.motion.y }, soundButtonRect))
+		{
 			if (mouseClicked)
 			{
+				mouseClicked = false;
 				playMusic = !playMusic;
-				if(playMusic) Mix_PlayMusic(music, 100);
-				else Mix_HaltMusic();
+				if(playMusic) Mix_HaltMusic();
+				else Mix_PlayMusic(music, 100);
+
 			}
-			if(playMusic) soundOffAux = soundOnHover;
+			if(playMusic) soundOffAux = soundOnHover; 
 			else soundOffAux = soundOffHover;
 		}
 		else 
@@ -155,7 +158,7 @@ int main(int, char*[])
 			if(playMusic) soundOffAux = soundOnTexture;
 			else soundOffAux = soundOffTexture;
 		}
-
+		
 		//Cambio de Textura Exit
 		if (Collision(Vec2{ event.motion.x, event.motion.y }, exitButtonRect)) {
 	        exitAux = exitHover;
@@ -172,12 +175,11 @@ int main(int, char*[])
 		//Text
 		SDL_RenderCopy(m_renderer, textTexture, nullptr, &textRect);
 		//Play Button
-		SDL_RenderCopy(m_renderer, playTexture, nullptr, &playerRect);
+		SDL_RenderCopy(m_renderer, playAux, nullptr, &playButtonRect);
 		//Sound Botton
-		SDL_RenderCopy(m_renderer, soundOffTexture, nullptr, &soundButtonRect);
-		SDL_RenderCopy(m_renderer, soundOnTexture, nullptr, &soundButtonRect);
+		SDL_RenderCopy(m_renderer, soundOffAux, nullptr, &soundButtonRect);
 		//Exit
-		SDL_RenderCopy(m_renderer, exitTexture, nullptr, &exitButtonRect);
+		SDL_RenderCopy(m_renderer, exitAux, nullptr, &exitButtonRect);
 		SDL_RenderPresent(m_renderer);
 	}
 

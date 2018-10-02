@@ -1,0 +1,23 @@
+﻿  0 File(s) copied
+  SDL_AA1_02.cpp
+c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(17): warning C4297: 'SDL_main': function assumed not to throw an exception but does
+  c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(17): note: __declspec(nothrow), throw(), noexcept(true), or noexcept was specified on the function
+c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(22): warning C4297: 'SDL_main': function assumed not to throw an exception but does
+  c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(22): note: __declspec(nothrow), throw(), noexcept(true), or noexcept was specified on the function
+c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(27): warning C4297: 'SDL_main': function assumed not to throw an exception but does
+  c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(27): note: __declspec(nothrow), throw(), noexcept(true), or noexcept was specified on the function
+c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(31): warning C4297: 'SDL_main': function assumed not to throw an exception but does
+  c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(31): note: __declspec(nothrow), throw(), noexcept(true), or noexcept was specified on the function
+c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(34): warning C4297: 'SDL_main': function assumed not to throw an exception but does
+  c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(34): note: __declspec(nothrow), throw(), noexcept(true), or noexcept was specified on the function
+c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(38): warning C4297: 'SDL_main': function assumed not to throw an exception but does
+  c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(38): note: __declspec(nothrow), throw(), noexcept(true), or noexcept was specified on the function
+c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(47): warning C4297: 'SDL_main': function assumed not to throw an exception but does
+  c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(47): note: __declspec(nothrow), throw(), noexcept(true), or noexcept was specified on the function
+c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(54): warning C4297: 'SDL_main': function assumed not to throw an exception but does
+  c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(54): note: __declspec(nothrow), throw(), noexcept(true), or noexcept was specified on the function
+c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(60): warning C4297: 'SDL_main': function assumed not to throw an exception but does
+  c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(60): note: __declspec(nothrow), throw(), noexcept(true), or noexcept was specified on the function
+c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(62): warning C4297: 'SDL_main': function assumed not to throw an exception but does
+  c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(62): note: __declspec(nothrow), throw(), noexcept(true), or noexcept was specified on the function
+  AA1_02.vcxproj -> C:\Users\Cristopher.Mendoza\Desktop\Repositorio\Actividades-SDL-2018\Actividades SLN\\bin\Win32Debug\AA1_02.exe
