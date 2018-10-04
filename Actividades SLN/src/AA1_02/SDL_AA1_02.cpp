@@ -9,12 +9,20 @@
 
 #define SCREEN_WIDTH 1920
 #define SCREEN_HEIGHT 1080
-#define FPS 60
+
+const int FPS = 60;
+const int DELAY_TIME = 1000.0f / FPS;
 
 enum gameStates {
 	MENU,
 	INGAME,
 	MAX
+};
+enum playerControl {
+	UP,
+	DOWN, 
+	RIGHT,
+	LEFT
 };
 
 int main(int, char*[])
@@ -47,6 +55,9 @@ int main(int, char*[])
 	const Uint8 soundFlags{ MIX_INIT_MP3 };
 	if (!(Mix_Init(soundFlags) & soundFlags)) throw "Error: SDL_image init";
 
+	//-->Time
+	Uint32 frameStart, frameTime;
+
 #pragma endregion 	
 
 // --- SPRITES ---
@@ -58,7 +69,7 @@ int main(int, char*[])
 	SDL_Rect bgRect{ 0,0,SCREEN_WIDTH, SCREEN_HEIGHT };
 
 	//In game Backgroung
-	SDL_Texture* gameBgTexture{ IMG_LoadTexture(m_renderer, "../../res/img/bgHome.png") };
+	SDL_Texture* gameBgTexture{ IMG_LoadTexture(m_renderer, "../../res/img/bgCastle.jpg") };
 	if (bgTexture == nullptr) throw "Error: bgTexture init";
 	SDL_Rect gameBgRect{ 0,0,SCREEN_WIDTH, SCREEN_HEIGHT };
 
@@ -132,17 +143,18 @@ int main(int, char*[])
 #pragma endregion
 
 //-->Animated Sprite ---
-	SDL_Texture *playerTexture{ IMG_LoadTexture(m_renderer, "../../res/img/sp01.png") };
-	SDL_Rect playerRect, playerPosition;
+	SDL_Texture *player1Texture{ IMG_LoadTexture(m_renderer, "../../res/img/spCastle.png") };
+	SDL_Rect player1Rect, player1Position;
 	int textWidth, textHeight, frameWidth, frameHeight;
-	SDL_QueryTexture(playerTexture, NULL, NULL, &textWidth, &textHeight);
-	frameWidth = textWidth / 6;
-	frameHeight = textHeight / 1;
-	playerPosition.x = playerPosition.y = 0;
-	playerRect.x = playerRect.y = 0;
-	playerPosition.h = playerRect.h = frameHeight;
-	playerPosition.w = playerRect.w = frameHeight;
-	int frameTime = 0;
+	SDL_QueryTexture(player1Texture, NULL, NULL, &textWidth, &textHeight);
+	frameWidth = textWidth / 12;
+	frameHeight = textHeight / 8;
+	player1Position.x = player1Position.y = 800;
+	player1Rect.x = player1Rect.y = 0;
+	player1Position.h = player1Rect.h = frameHeight;
+	player1Position.w = player1Rect.w = frameHeight;
+
+	int frameTimeSprite = 0;
 
 #pragma region Audio
 
@@ -163,19 +175,31 @@ int main(int, char*[])
 	SDL_Event event;
 	gameStates state = MENU;
 	Vec2 mouseAxis;
+	playerControl player1;
+	playerControl player2;
+	
 	bool isRunning = true;
 	bool mouseClicked = false;
 	bool playMenuMusic = false;
 	while (isRunning) {
-
+		frameStart = SDL_GetTicks();
 		// HANDLE EVENTS
-		while (SDL_PollEvent(&event)) {
+		while (SDL_PollEvent(&event))
+		{
 			switch (event.type) {
 			case SDL_QUIT:
 				isRunning = false;
 				break;
 			case SDL_KEYDOWN:
 				if (event.key.keysym.sym == SDLK_ESCAPE) isRunning = false;
+				if (event.key.keysym.sym == SDLK_UP) player1 = UP;
+				if (event.key.keysym.sym == SDLK_DOWN) player1 = DOWN;
+				if (event.key.keysym.sym == SDLK_RIGHT) player1 = RIGHT;
+				if (event.key.keysym.sym == SDLK_LEFT) player1 = LEFT;
+				if (event.key.keysym.sym == SDLK_w) player2 = UP;
+				if (event.key.keysym.sym == SDLK_s) player2 = DOWN;
+				if (event.key.keysym.sym == SDLK_d) player2 = RIGHT;
+				if (event.key.keysym.sym == SDLK_a) player2 = LEFT;
 				break;
 			case SDL_MOUSEMOTION:
 				mouseAxis.x = event.motion.x;
@@ -189,24 +213,28 @@ int main(int, char*[])
 			}
 		}
 
-// --- UPDATE ---
 
-	//Player Sprite Movement
-	frameTime++;
-	if (FPS / frameTime <= 9)
-	{
-		frameTime = 0;
-		playerRect.x += frameWidth;
-		if (playerRect.x >= textWidth)
-			playerRect.x = 0;
-	}
+		// --- UPDATE --
+			//Hide Mouse 
+		SDL_ShowCursor(SDL_DISABLE);
 
-	//Putting the Mouse at the center of the cursor 
-	cursorTarget.x = mouseAxis.x - 150;
-	cursorTarget.y = mouseAxis.y - 90;
-	//Linear interpolation to make the cursor movement more smooth
-	cursorRect.x += (cursorTarget.x - cursorRect.x) / 5;
-	cursorRect.y += (cursorTarget.y - cursorRect.y) / 5;
+		//Player Sprite Movement
+		frameTimeSprite++;
+
+		if (FPS / frameTimeSprite <= 9)
+		{
+			frameTimeSprite = 0;
+			player1Rect.x += frameWidth;
+			if (player1Rect.x >= textWidth)
+				player1Rect.x = 0;
+		}
+
+		//Putting the Mouse at the center of the cursor 
+		cursorTarget.x = mouseAxis.x - 150;
+		cursorTarget.y = mouseAxis.y - 90;
+		//Linear interpolation to make the cursor movement more smooth
+		cursorRect.x += (cursorTarget.x - cursorRect.x) / 5;
+		cursorRect.y += (cursorTarget.y - cursorRect.y) / 5;
 
 #pragma region Menu: Button Colliders
 
@@ -220,7 +248,7 @@ int main(int, char*[])
 				state = INGAME;
 			}
 		}
-		else 
+		else
 			playAux = playTexture;
 
 		//Changing Sound Off Texture
@@ -230,35 +258,35 @@ int main(int, char*[])
 			{
 				mouseClicked = false;
 				playMenuMusic = !playMenuMusic;
-				if(playMenuMusic) Mix_PauseMusic();
+				if (playMenuMusic) Mix_PauseMusic();
 				else Mix_PlayMusic(menuMusic, 100);
 
 			}
-			if(playMenuMusic) soundOffAux = soundOnHover;
+			if (playMenuMusic) soundOffAux = soundOnHover;
 			else soundOffAux = soundOffHover;
 		}
-		else 
+		else
 		{
-			if(playMenuMusic) soundOffAux = soundOnTexture;
+			if (playMenuMusic) soundOffAux = soundOnTexture;
 			else soundOffAux = soundOffTexture;
 		}
-		
+
 		//Changing Exit Button Texture
 		if (Collision(mouseAxis, Rect(exitButtonRect))) {
-	        exitAux = exitHover;
-			if(mouseClicked) isRunning = false;
+			exitAux = exitHover;
+			if (mouseClicked) isRunning = false;
 		}
 		else exitAux = exitTexture;
 
 #pragma endregion
 
-// --- DRAW ---
-	SDL_RenderClear(m_renderer);
+		// --- DRAW ---
+		SDL_RenderClear(m_renderer);
 
 #pragma region State Machine
 
-	switch (state) 
-	{
+		switch (state)
+		{
 		case MENU:
 			//Background
 			SDL_RenderCopy(m_renderer, bgTexture, nullptr, &bgRect);
@@ -277,40 +305,46 @@ int main(int, char*[])
 			//Background
 			SDL_RenderCopy(m_renderer, gameBgTexture, nullptr, &gameBgRect);
 			//Animated Player Sprite
-			SDL_RenderCopy(m_renderer, playerTexture, &playerRect, &playerPosition);
+			SDL_RenderCopy(m_renderer, player1Texture, &player1Rect, &player1Position);
 			break;
 		default:
 			break;
-	}
+		}
 
 #pragma endregion 
 
-	//Hide Mouse 
-	SDL_ShowCursor(SDL_DISABLE);
-	//Update the screen
-	SDL_RenderPresent(m_renderer);
-}
+
+		//Update the screen
+		SDL_RenderPresent(m_renderer);
+
+		//Frame Control
+		frameTime = SDL_GetTicks() - frameStart;
+		if (frameTime < DELAY_TIME)
+			SDL_Delay((int)(DELAY_TIME - frameTime));
+
+	}
 
 #pragma region Close SDL
 
-// --- DESTROY ---
-	SDL_DestroyTexture(bgTexture);
-	SDL_DestroyTexture(cursorTexture);
-	SDL_DestroyTexture(textTexture);
-	SDL_DestroyTexture(soundOffTexture);
-	SDL_DestroyTexture(soundOnTexture);
-	SDL_DestroyTexture(exitTexture);
-	SDL_FreeSurface(tmpSurf);
-	TTF_CloseFont(font);
-	Mix_CloseAudio();
-	IMG_Quit();
-	TTF_Quit();
-	SDL_DestroyRenderer(m_renderer);
-	SDL_DestroyWindow(m_window);
-	SDL_Quit();
-	Mix_Quit();
+		// --- DESTROY ---
+		SDL_DestroyTexture(bgTexture);
+		SDL_DestroyTexture(cursorTexture);
+		SDL_DestroyTexture(textTexture);
+		SDL_DestroyTexture(soundOffTexture);
+		SDL_DestroyTexture(soundOnTexture);
+		SDL_DestroyTexture(exitTexture);
+		SDL_FreeSurface(tmpSurf);
+		TTF_CloseFont(font);
+		Mix_CloseAudio();
+		IMG_Quit();
+		TTF_Quit();
+		SDL_DestroyRenderer(m_renderer);
+		SDL_DestroyWindow(m_window);
+		SDL_Quit();
+		Mix_Quit();
 
 #pragma endregion 
 
-	return 0;
+		return 0;
+	
 }
