@@ -1,5 +1,7 @@
 #pragma once
 
+int speedMovement = 2;
+
 struct Vec2
 {
 	int x, y;
@@ -13,12 +15,7 @@ struct Rect
 
 struct Player
 {
-	enum playerDirection {
-		UP,
-		DOWN,
-		RIGHT,
-		LEFT
-	};
-
-	Vec2 velocity;
+	//Directions
+	bool goUp, goDown, goLeft, goRight;
+	Player() :goUp{ false }, goDown{ false }, goRight{ false }, goLeft{ false } {};
 };

@@ -1,0 +1,28 @@
+﻿  0 archivo(s) copiado(s)
+  SDL_AA1_02.cpp
+c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(14): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(29): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
+  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(29): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
+c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(34): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
+  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(34): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
+c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(39): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
+  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(39): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
+c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(43): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
+  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(43): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
+c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(46): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
+  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(46): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
+c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(50): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
+  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(50): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
+c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(62): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
+  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(62): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
+c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(67): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
+  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(67): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
+c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(76): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
+  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(76): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
+c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(85): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
+  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(85): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
+c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(87): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
+  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(87): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
+c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(171): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
+  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(171): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
+  AA1_02.vcxproj -> C:\Users\Win7\Desktop\Repositorio\Actividades-SDL-2018\Actividades SLN\\bin\x64Debug\AA1_02.exe

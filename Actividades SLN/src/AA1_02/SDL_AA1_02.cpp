@@ -18,12 +18,6 @@ enum gameStates {
 	INGAME,
 	MAX
 };
-enum playerControl {
-	UP,
-	DOWN, 
-	RIGHT,
-	LEFT
-};
 
 int main(int, char*[])
 {
@@ -143,18 +137,33 @@ int main(int, char*[])
 #pragma endregion
 
 //-->Animated Sprite ---
-	SDL_Texture *player1Texture{ IMG_LoadTexture(m_renderer, "../../res/img/spCastle.png") };
+	//Player1
+	SDL_Texture *playerTexture{ IMG_LoadTexture(m_renderer, "../../res/img/spCastle.png") };
+	int textWidth, textHeight, frameWidth1, frameHeight1;
+	SDL_QueryTexture(playerTexture, NULL, NULL, &textWidth, &textHeight);
 	SDL_Rect player1Rect, player1Position;
-	int textWidth, textHeight, frameWidth, frameHeight;
-	SDL_QueryTexture(player1Texture, NULL, NULL, &textWidth, &textHeight);
-	frameWidth = textWidth / 12;
-	frameHeight = textHeight / 8;
-	player1Position.x = player1Position.y = 800;
-	player1Rect.x = player1Rect.y = 0;
-	player1Position.h = player1Rect.h = frameHeight;
-	player1Position.w = player1Rect.w = frameHeight;
+	frameWidth1 = textWidth / 12;
+	frameHeight1 = textHeight / 8;
+	player1Position.x = 800;
+	player1Position.y = 800;
+	player1Rect.x = frameWidth1*3;
+	player1Rect.y = 0;
+	player1Position.w = player1Rect.w = frameWidth1;
+	player1Position.h = player1Rect.h = frameHeight1;
 
-	int frameTimeSprite = 0;
+	//Player2
+	SDL_Rect player2Rect, player2Position;
+	int frameWidth2, frameHeight2;
+	frameWidth2 = textWidth / 12;
+	frameHeight2 = textHeight / 8;
+	player2Position.x = 1100;
+	player2Position.y = 800;
+	player2Rect.x = player2Rect.y = 0;
+	player2Position.w = player2Rect.w = frameWidth2;
+	player2Position.h = player2Rect.h = frameHeight2;
+
+	int frameTimeSprite1 = 0;
+	int frameTimeSprite2 = 0;
 
 #pragma region Audio
 
@@ -175,12 +184,14 @@ int main(int, char*[])
 	SDL_Event event;
 	gameStates state = MENU;
 	Vec2 mouseAxis;
-	playerControl player1;
-	playerControl player2;
-	
+	Player player1;
+	Player player2;
+	bool player1OnMove = false;
+	bool player2OnMove = false;
 	bool isRunning = true;
 	bool mouseClicked = false;
 	bool playMenuMusic = false;
+
 	while (isRunning) {
 		frameStart = SDL_GetTicks();
 		// HANDLE EVENTS
@@ -192,14 +203,32 @@ int main(int, char*[])
 				break;
 			case SDL_KEYDOWN:
 				if (event.key.keysym.sym == SDLK_ESCAPE) isRunning = false;
-				if (event.key.keysym.sym == SDLK_UP) player1 = UP;
-				if (event.key.keysym.sym == SDLK_DOWN) player1 = DOWN;
-				if (event.key.keysym.sym == SDLK_RIGHT) player1 = RIGHT;
-				if (event.key.keysym.sym == SDLK_LEFT) player1 = LEFT;
-				if (event.key.keysym.sym == SDLK_w) player2 = UP;
-				if (event.key.keysym.sym == SDLK_s) player2 = DOWN;
-				if (event.key.keysym.sym == SDLK_d) player2 = RIGHT;
-				if (event.key.keysym.sym == SDLK_a) player2 = LEFT;
+
+				if (event.key.keysym.sym == SDLK_UP) player1.goUp = true;
+				if (event.key.keysym.sym == SDLK_DOWN) player1.goDown = true;
+				if (event.key.keysym.sym == SDLK_RIGHT) player1.goRight = true;
+				if (event.key.keysym.sym == SDLK_LEFT) player1.goLeft = true;
+				if (player1.goUp || player1.goDown || player1.goRight || player1.goLeft) player1OnMove = true;
+
+				if (event.key.keysym.sym == SDLK_w) player2.goUp = true;
+				if (event.key.keysym.sym == SDLK_s) player2.goDown = true;
+				if (event.key.keysym.sym == SDLK_d) player2.goRight = true;
+				if (event.key.keysym.sym == SDLK_a) player2.goLeft = true;
+				if (player2.goUp || player2.goDown || player2.goRight || player2.goLeft) player2OnMove = true;
+
+				break;
+			case SDL_KEYUP:
+				if (event.key.keysym.sym == SDLK_UP) player1.goUp = false;
+				if (event.key.keysym.sym == SDLK_DOWN) player1.goDown = false;
+				if (event.key.keysym.sym == SDLK_RIGHT) player1.goRight = false;
+				if (event.key.keysym.sym == SDLK_LEFT) player1.goLeft = false;
+				if (!player1.goUp || !player1.goDown || !player1.goRight || !player1.goLeft) player1OnMove = false;
+
+				if (event.key.keysym.sym == SDLK_w) player2.goUp = false;
+				if (event.key.keysym.sym == SDLK_s) player2.goDown = false;
+				if (event.key.keysym.sym == SDLK_d) player2.goRight = false;
+				if (event.key.keysym.sym == SDLK_a) player2.goLeft = false;
+				if (!player2.goUp || !player2.goDown || !player2.goRight || !player2.goLeft) player2OnMove = false;
 				break;
 			case SDL_MOUSEMOTION:
 				mouseAxis.x = event.motion.x;
@@ -213,20 +242,69 @@ int main(int, char*[])
 			}
 		}
 
-
 		// --- UPDATE --
 			//Hide Mouse 
 		SDL_ShowCursor(SDL_DISABLE);
 
-		//Player Sprite Movement
-		frameTimeSprite++;
+		//Player 1 movement
+		if (player1.goUp) {
+			player1Position.x += 0 * speedMovement;
+			player1Position.y += -1 * speedMovement;
+			player1Rect.y = frameHeight1 * 3;
+		}
+		if (player1.goDown) {
+			player1Position.x += 0 * speedMovement;
+			player1Position.y += 1 * speedMovement;
+			player1Rect.y = frameHeight1 * 0;
+		}
+	    if (player1.goRight) {
+			player1Position.x += 1 * speedMovement;
+			player1Position.y += 0 * speedMovement;
+			player1Rect.y = frameHeight1 * 2;
+		}
+		if (player1.goLeft) {
+			player1Position.x += -1 * speedMovement;
+			player1Position.y += 0 * speedMovement;
+			player1Rect.y = frameHeight1 * 1;
+		}	
 
-		if (FPS / frameTimeSprite <= 9)
+		//Player 1 movement
+		if (player2.goUp) {
+			player2Position.x += 0 * speedMovement;
+			player2Position.y += -1 * speedMovement;
+			player2Rect.y = frameHeight2 * 3;
+		}
+		if (player2.goDown) {
+			player2Position.x += 0 * speedMovement;
+			player2Position.y += 1 * speedMovement;
+			player2Rect.y = frameHeight2 * 0;
+		}
+		if (player2.goRight) {
+			player2Position.x += 1 * speedMovement;
+			player2Position.y += 0 * speedMovement;
+			player2Rect.y = frameHeight2 * 2;
+		}
+		if (player2.goLeft) {
+			player2Position.x += -1 * speedMovement;
+			player2Position.y += 0 * speedMovement;
+			player2Rect.y = frameHeight2 * 1;
+		}
+
+		//Player Sprite Movement
+	    frameTimeSprite1++;
+		if (FPS / frameTimeSprite1 <= 9 && player1OnMove)
 		{
-			frameTimeSprite = 0;
-			player1Rect.x += frameWidth;
-			if (player1Rect.x >= textWidth)
-				player1Rect.x = 0;
+			frameTimeSprite1 = 0;
+		    player1Rect.x += frameWidth1;
+			if (player1Rect.x >= (frameWidth1*6)) player1Rect.x = frameWidth1*3;
+		}
+
+		frameTimeSprite2++;
+		if (FPS / frameTimeSprite2 <= 9 && player2OnMove)
+		{
+			frameTimeSprite2 = 0;
+			player2Rect.x += frameWidth2;
+			if (player2Rect.x >= (frameWidth2*3)) player2Rect.x = 0;
 		}
 
 		//Putting the Mouse at the center of the cursor 
@@ -304,15 +382,16 @@ int main(int, char*[])
 		case INGAME:
 			//Background
 			SDL_RenderCopy(m_renderer, gameBgTexture, nullptr, &gameBgRect);
-			//Animated Player Sprite
-			SDL_RenderCopy(m_renderer, player1Texture, &player1Rect, &player1Position);
+			//Animated Player1 Sprite
+			SDL_RenderCopy(m_renderer, playerTexture, &player1Rect, &player1Position);
+			//Animated Player2 Sprite
+			SDL_RenderCopy(m_renderer, playerTexture, &player2Rect, &player2Position);
 			break;
 		default:
 			break;
 		}
 
 #pragma endregion 
-
 
 		//Update the screen
 		SDL_RenderPresent(m_renderer);
@@ -321,7 +400,6 @@ int main(int, char*[])
 		frameTime = SDL_GetTicks() - frameStart;
 		if (frameTime < DELAY_TIME)
 			SDL_Delay((int)(DELAY_TIME - frameTime));
-
 	}
 
 #pragma region Close SDL
@@ -345,6 +423,5 @@ int main(int, char*[])
 
 #pragma endregion 
 
-		return 0;
-	
+	return 0;
 }
