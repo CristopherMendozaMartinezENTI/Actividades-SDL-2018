@@ -16,6 +16,7 @@ struct Rect
 struct Player
 {
 	//Directions
-	bool goUp, goDown, goLeft, goRight;
-	Player() :goUp{ false }, goDown{ false }, goRight{ false }, goLeft{ false } {};
+	int score;
+	bool goUp, goDown, goLeft, goRight, iddle;
+	Player() :score{ 0 }, goUp { false }, goDown{ false }, goRight{ false }, goLeft{ false }, iddle{ false } {};
 };
