@@ -7,19 +7,6 @@
 #include <string>
 #include "Collisions.h"
 
-#define SCREEN_WIDTH 1920
-#define SCREEN_HEIGHT 1080
-#define FPS  60
-#define DELAY_TIME 1000.0f / FPS
-#define MAX_TIME 60000
-#define AMOUNT_OF_COINS 20
-
-enum gameStates {
-	MENU,
-	INGAME,
-	MAX
-};
-
 int main(int, char*[])
 {
 // --- Init ---
@@ -141,16 +128,16 @@ int main(int, char*[])
 
 #pragma region Score Boards
 	//Player 1 puntuation
-	TTF_Font *inGameFont{ TTF_OpenFont("../../res/ttf/SuperMario256.ttf", 60) };
+	TTF_Font *inGameFont{ TTF_OpenFont("../../res/ttf/Arial.ttf", 80) };
 	if (inGameFont == nullptr) throw "No es pot inicialitzar SDL_ttf";
 	tmpSurf = { TTF_RenderText_Blended(inGameFont, "PlayerOne: ", SDL_Color{ 0,0,0}) };
 	SDL_Texture *player1ScoreTexture{ SDL_CreateTextureFromSurface(m_renderer, tmpSurf) };
-	SDL_Rect player1ScoreRect{ 50, 30, tmpSurf->w, tmpSurf->h };
+	SDL_Rect player1ScoreRect{ 20, 30, tmpSurf->w, tmpSurf->h };
 
 	//Player 1 puntuation
 	tmpSurf = { TTF_RenderText_Blended(inGameFont, "PlayerTwo: ", SDL_Color{ 0,0,0}) };
 	SDL_Texture *player2ScoreTexture{ SDL_CreateTextureFromSurface(m_renderer, tmpSurf) };
-	SDL_Rect player2ScoreRect{ 50, 120, tmpSurf->w, tmpSurf->h };
+	SDL_Rect player2ScoreRect{ 20, 120, tmpSurf->w, tmpSurf->h };
 #pragma endregion
 
 #pragma region Coins
@@ -181,6 +168,9 @@ int main(int, char*[])
 	player1Rect.y = 0;
 	player1Position.w = player1Rect.w = frameWidth1;
 	player1Position.h = player1Rect.h = frameHeight1;
+	player1Position.h = frameHeight1 * PLAYER_SIZE;
+	player1Position.w = frameWidth1 * PLAYER_SIZE;
+
 
 	//Player2
 	SDL_Rect player2Rect, player2Position;
@@ -192,6 +182,8 @@ int main(int, char*[])
 	player2Rect.x = player2Rect.y = 0;
 	player2Position.w = player2Rect.w = frameWidth2;
 	player2Position.h = player2Rect.h = frameHeight2;
+	player2Position.h = frameHeight2 * PLAYER_SIZE;
+	player2Position.w = frameWidth2 * PLAYER_SIZE;
 
 	int frameTimeSprite1 = 0;
 	int frameTimeSprite2 = 0;
@@ -205,8 +197,8 @@ int main(int, char*[])
 	SDL_Rect scoreRectPlayer1Right, scorePositionPlayer1Right;
 	frameWidthScore1Right = scoreWidth / 10 ;
 	frameHeightScore1Right = scoreHeight / 1;
-	scorePositionPlayer1Right.x = 600;
-	scorePositionPlayer1Right.y = 10;
+	scorePositionPlayer1Right.x = 550;
+	scorePositionPlayer1Right.y = 40;
 	scoreRectPlayer1Right.x = scoreRectPlayer1Right.y = 0;
 	scorePositionPlayer1Right.w = scoreRectPlayer1Right.w = frameWidthScore1Right;
 	scorePositionPlayer1Right.h = scoreRectPlayer1Right.h = frameHeightScore1Right;
@@ -216,8 +208,8 @@ int main(int, char*[])
 	int frameWidthScore1Left, frameHeightScore1Left;
 	frameWidthScore1Left = scoreWidth / 10;
 	frameHeightScore1Left = scoreHeight / 1;
-	scorePositionPlayer1Left.x = 500;
-	scorePositionPlayer1Left.y = 10;
+	scorePositionPlayer1Left.x = 450;
+	scorePositionPlayer1Left.y = 40;
 	scoreRectPlayer1Left.x = scoreRectPlayer1Left.y = 0;
 	scorePositionPlayer1Left.w = scoreRectPlayer1Left.w = frameWidthScore1Left;
 	scorePositionPlayer1Left.h = scoreRectPlayer1Left.h = frameHeightScore1Left;
@@ -229,8 +221,8 @@ int main(int, char*[])
 	int frameWidthScore2Right, frameHeightScore2Right;
 	frameWidthScore2Right = scoreWidth / 10;
 	frameHeightScore2Right = scoreHeight / 1;
-	scorePositionPlayer2Right.x = 600;
-	scorePositionPlayer2Right.y = 95;
+	scorePositionPlayer2Right.x = 550;
+	scorePositionPlayer2Right.y = 130;
 	scoreRectPlayer2Right.x = scoreRectPlayer2Right.y = 0;
 	scorePositionPlayer2Right.w = scoreRectPlayer2Right.w = frameWidthScore2Right;
 	scorePositionPlayer2Right.h = scoreRectPlayer2Right.h = frameHeightScore2Right;
@@ -240,8 +232,8 @@ int main(int, char*[])
 	int frameWidthScore2Left, frameHeightScore2Left;
 	frameWidthScore2Left = scoreWidth / 10;
 	frameHeightScore2Left = scoreHeight / 1;
-	scorePositionPlayer2Left.x = 500;
-	scorePositionPlayer2Left.y = 95;
+	scorePositionPlayer2Left.x = 450;
+	scorePositionPlayer2Left.y = 130;
 	scoreRectPlayer2Left.x = scoreRectPlayer2Left.y = 0;
 	scorePositionPlayer2Left.w = scoreRectPlayer2Left.w = frameWidthScore2Left;
 	scorePositionPlayer2Left.h = scoreRectPlayer2Left.h = frameHeightScore2Left;
@@ -288,31 +280,24 @@ int main(int, char*[])
 				break;
 			case SDL_KEYDOWN:
 				if (event.key.keysym.sym == SDLK_ESCAPE) isRunning = false;
-
 				if (event.key.keysym.sym == SDLK_UP) player1.goUp = true;
 				if (event.key.keysym.sym == SDLK_DOWN) player1.goDown = true;
 				if (event.key.keysym.sym == SDLK_RIGHT) player1.goRight = true;
 				if (event.key.keysym.sym == SDLK_LEFT) player1.goLeft = true;
-				if (player1.goUp || player1.goDown || player1.goRight || player1.goLeft) player1OnMove = true;
-
 				if (event.key.keysym.sym == SDLK_w) player2.goUp = true;
 				if (event.key.keysym.sym == SDLK_s) player2.goDown = true;
 				if (event.key.keysym.sym == SDLK_d) player2.goRight = true;
 				if (event.key.keysym.sym == SDLK_a) player2.goLeft = true;
-				if (player2.goUp || player2.goDown || player2.goRight || player2.goLeft) player2OnMove = true;
 				break;
 			case SDL_KEYUP:
 				if (event.key.keysym.sym == SDLK_UP) player1.goUp = false;
 				if (event.key.keysym.sym == SDLK_DOWN) player1.goDown = false;
 				if (event.key.keysym.sym == SDLK_RIGHT) player1.goRight = false;
 				if (event.key.keysym.sym == SDLK_LEFT) player1.goLeft = false;
-				if (!player1.goUp && !player1.goDown && !player1.goRight && !player1.goLeft) player1OnMove = false;
-
 				if (event.key.keysym.sym == SDLK_w) player2.goUp = false;
 				if (event.key.keysym.sym == SDLK_s) player2.goDown = false;
 				if (event.key.keysym.sym == SDLK_d) player2.goRight = false;
 				if (event.key.keysym.sym == SDLK_a) player2.goLeft = false;
-				if (!player2.goUp && !player2.goDown && !player2.goRight && !player2.goLeft) player2OnMove = false;
 				break;
 			case SDL_MOUSEMOTION:
 				mouseAxis.x = event.motion.x;
@@ -330,6 +315,13 @@ int main(int, char*[])
 			//Hide Mouse 
 		SDL_ShowCursor(SDL_DISABLE);
 
+		//Putting the Mouse at the center of the cursor 
+		cursorTarget.x = mouseAxis.x - 150;
+		cursorTarget.y = mouseAxis.y - 90;
+		//Linear interpolation to make the cursor movement more smooth
+		cursorRect.x += (cursorTarget.x - cursorRect.x) / 5;
+		cursorRect.y += (cursorTarget.y - cursorRect.y) / 5;
+
 #pragma region Menu: Button Colliders
 
 		//Changing Play Button Texture
@@ -339,7 +331,20 @@ int main(int, char*[])
 			if (mouseClicked)
 			{
 				mouseClicked = false;
-				state = INGAME;
+				state = IN_GAME;
+				//Restart player positions and scores
+				sec = 0;
+				player1Position.x = 800;
+				player1Position.y = 800;
+				player1Rect.x = frameWidth1 * 3;
+				player1Rect.y = 0;
+				player2Position.x = 1100;
+				player2Position.y = 800;
+				player2Rect.x = player2Rect.y = 0;
+				scoreRectPlayer1Right.x = 0;
+				scoreRectPlayer1Left.x = 0;
+				scoreRectPlayer2Right.x = 0;
+				scoreRectPlayer2Left.x = 0;
 			}
 		}
 		else
@@ -374,37 +379,35 @@ int main(int, char*[])
 
 #pragma endregion
 
-		//Putting the Mouse at the center of the cursor 
-		cursorTarget.x = mouseAxis.x - 150;
-		cursorTarget.y = mouseAxis.y - 90;
-		//Linear interpolation to make the cursor movement more smooth
-		cursorRect.x += (cursorTarget.x - cursorRect.x) / 5;
-		cursorRect.y += (cursorTarget.y - cursorRect.y) / 5;
-
 #pragma region Players Animations, Movement and Score
 
+		if (player1.goUp || player1.goDown || player1.goRight || player1.goLeft) player1OnMove = true;
+		if (player2.goUp || player2.goDown || player2.goRight || player2.goLeft) player2OnMove = true;
+		if (!player1.goUp && !player1.goDown && !player1.goRight && !player1.goLeft) player1OnMove = false;
+		if (!player2.goUp && !player2.goDown && !player2.goRight && !player2.goLeft) player2OnMove = false;
+
 		//Movement
-		if (state == INGAME){
+		if (state == IN_GAME){
 			//Player 1 
 			if (player1OnMove) {
 				if (player1.goUp && player1Position.y > 300) {
-					player1Position.x += 0 * speedMovement;
-					player1Position.y += -1 * speedMovement;
+					player1Position.x += 0 * MOTION_SPEED;
+					player1Position.y += -1 * MOTION_SPEED;
 					player1Rect.y = frameHeight1 * 3;
 				}
-				if (player1.goDown && player1Position.y < SCREEN_HEIGHT - 30) {
-					player1Position.x += 0 * speedMovement;
-					player1Position.y += 1 * speedMovement;
+				if (player1.goDown && player1Position.y < SCREEN_HEIGHT - 70) {
+					player1Position.x += 0 * MOTION_SPEED;
+					player1Position.y += 1 * MOTION_SPEED;
 					player1Rect.y = frameHeight1 * 0;
 				}
-				if (player1.goRight && player1Position.x < SCREEN_WIDTH - 30) {
-					player1Position.x += 1 * speedMovement;
-					player1Position.y += 0 * speedMovement;
+				if (player1.goRight && player1Position.x < SCREEN_WIDTH - 60) {
+					player1Position.x += 1 * MOTION_SPEED;
+					player1Position.y += 0 * MOTION_SPEED;
 					player1Rect.y = frameHeight1 * 2;
 				}
 				if (player1.goLeft && player1Position.x > 0) {
-					player1Position.x += -1 * speedMovement;
-					player1Position.y += 0 * speedMovement;
+					player1Position.x += -1 * MOTION_SPEED;
+					player1Position.y += 0 * MOTION_SPEED;
 					player1Rect.y = frameHeight1 * 1;
 				}
 
@@ -420,23 +423,23 @@ int main(int, char*[])
 		//Player 2 
 		if (player2OnMove) {
 			if (player2.goUp && player2Position.y > 300) {
-				player2Position.x += 0 * speedMovement;
-				player2Position.y += -1 * speedMovement;
+				player2Position.x += 0 * MOTION_SPEED;
+				player2Position.y += -1 * MOTION_SPEED;
 				player2Rect.y = frameHeight2 * 3;
 			}
-			if (player2.goDown && player2Position.y < SCREEN_HEIGHT - 30) {
-				player2Position.x += 0 * speedMovement;
-				player2Position.y += 1 * speedMovement;
+			if (player2.goDown && player2Position.y < SCREEN_HEIGHT - 70) {
+				player2Position.x += 0 * MOTION_SPEED;
+				player2Position.y += 1 * MOTION_SPEED;
 				player2Rect.y = frameHeight2 * 0;
 			}
-			if (player2.goRight&& player2Position.x < SCREEN_WIDTH - 30) {
-				player2Position.x += 1 * speedMovement;
-				player2Position.y += 0 * speedMovement;
+			if (player2.goRight&& player2Position.x < SCREEN_WIDTH - 60) {
+				player2Position.x += 1 * MOTION_SPEED;
+				player2Position.y += 0 * MOTION_SPEED;
 				player2Rect.y = frameHeight2 * 2;
 			}
 			if (player2.goLeft && player2Position.x > 0) {
-				player2Position.x += -1 * speedMovement;
-				player2Position.y += 0 * speedMovement;
+				player2Position.x += -1 * MOTION_SPEED;
+				player2Position.y += 0 * MOTION_SPEED;
 				player2Rect.y = frameHeight2 * 1;
 			}
 			frameTimeSprite2++;
@@ -457,16 +460,13 @@ int main(int, char*[])
 				coinRect[i].y = (rand() % 700) + 300;
 				player1.score++;
 				player1.getCoins = true;
-				
 			}
 			else if (rectCollision(player2Position, coinRect[i])) {
 					coinRect[i].x = (rand() % SCREEN_WIDTH) - 50;
 					coinRect[i].y = (rand() % 700) + 300;
 					player2.score++;
 					player2.getCoins = true;
-
 			}
-			
 		}
 
 		if (player1.getCoins) {
@@ -475,9 +475,14 @@ int main(int, char*[])
 				player1.getCoins = false;
 				frameTimeScore1Right = 0;
 				scoreRectPlayer1Right.x += frameWidthScore1Right;
-				if (scoreRectPlayer1Right.x >= (scoreWidth)) scoreRectPlayer1Right.x = 0;
+				if (scoreRectPlayer1Right.x >= (scoreWidth)) {
+					scoreRectPlayer1Right.x = 0;
+					scoreRectPlayer1Left.x += frameWidthScore1Left;
+					if (scoreRectPlayer1Left.x >= (scoreWidth)) scoreRectPlayer1Left.x = 0;
+				}
 			}
 		}
+		
 
 		if (player2.getCoins) {
 			frameTimeScore2Right++;
@@ -485,7 +490,11 @@ int main(int, char*[])
 				player2.getCoins = false;
 				frameTimeScore2Right = 0;
 				scoreRectPlayer2Right.x += frameWidthScore2Right;
-				if (scoreRectPlayer2Right.x >= (scoreWidth)) scoreRectPlayer2Right.x = 0;
+				if (scoreRectPlayer2Right.x >= (scoreWidth)) {
+					scoreRectPlayer2Right.x = 0;
+					scoreRectPlayer2Left.x += frameWidthScore2Left;
+					if (scoreRectPlayer2Left.x >= (scoreWidth)) scoreRectPlayer2Left.x = 0;
+				}
 			}
 		}
 	
@@ -506,18 +515,17 @@ int main(int, char*[])
 			if (exactTime[i] == '.') exactTime[i] == ':';
 		}
 
-		if (font == nullptr) throw "No es pot inicialitzar SDL_ttf";
-		SDL_Surface *tmpSurf{ TTF_RenderText_Blended(inGameFont, exactTime, SDL_Color{ 255,0,0,0 }) };
+		tmpSurf = { TTF_RenderText_Blended(inGameFont, exactTime, SDL_Color{ 255,0,0,0 }) };
 		if (tmpSurf == nullptr) throw "No es pot crear SDL surface";
 		SDL_Texture *timeTexture{ SDL_CreateTextureFromSurface(m_renderer, tmpSurf) };
-		SDL_Rect timeRect{ 1700, 70, tmpSurf->w, tmpSurf->h };
+		SDL_Rect timeRect{ 1750, 65, tmpSurf->w, tmpSurf->h };
 
 #pragma endregion 
 
 		// --- DRAW ---
 		SDL_RenderClear(m_renderer);
 
-#pragma region State Machine
+#pragma region Game State Machine
 
 		switch (state)
 		{
@@ -535,14 +543,13 @@ int main(int, char*[])
 			//Exit
 			SDL_RenderCopy(m_renderer, exitAux, nullptr, &exitButtonRect);
 			break;
-		case INGAME:
+		case IN_GAME:
 			//Background
 			SDL_RenderCopy(m_renderer, gameBgTexture, nullptr, &gameBgRect);
 			//Animated Player1 Sprite
 			SDL_RenderCopy(m_renderer, playerTexture, &player1Rect, &player1Position);
 			//Animated Player2 Sprite
 			SDL_RenderCopy(m_renderer, playerTexture, &player2Rect, &player2Position);
-			
 			//Coins
 			for (int i = 0; i < AMOUNT_OF_COINS; i++) {
 				SDL_RenderCopy(m_renderer, coinTexture, nullptr, &coinRect[i]);
@@ -597,3 +604,4 @@ int main(int, char*[])
 
 	return 0;
 }
+ 

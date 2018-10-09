@@ -1,6 +1,17 @@
 #pragma once
+#define SCREEN_WIDTH 1920
+#define SCREEN_HEIGHT 1080
+#define FPS  60
+#define DELAY_TIME 1000.0f / FPS
+#define MAX_TIME 10000
+#define AMOUNT_OF_COINS 10
+#define PLAYER_SIZE 2
+#define MOTION_SPEED 5
 
-int speedMovement = 5;
+enum gameStates {
+	MENU,
+	IN_GAME,
+};
 
 struct Vec2
 {

@@ -1,40 +1,38 @@
 ﻿  0 archivo(s) copiado(s)
   SDL_AA1_02.cpp
-c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(506): warning C4553: '==': el operador no tiene efecto; ¿ha pensado en '='?
-c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(30): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
-  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(30): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
-c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(35): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
-  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(35): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
-c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(40): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
-  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(40): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
-c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(44): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
-  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(44): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
-c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(47): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
-  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(47): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
-c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(51): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
-  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(51): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
-c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(64): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
-  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(64): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
-c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(69): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
-  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(69): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
-c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(78): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
-  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(78): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
-c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(88): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
-  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(88): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
-c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(90): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
-  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(90): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
-c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(145): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
-  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(145): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
-c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(159): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
-  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(159): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
-c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(172): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
-  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(172): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
-c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(201): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
-  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(201): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
-c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(255): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
-  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(255): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
-c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(509): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
-  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(509): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
-c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(511): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
-  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(511): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
-  AA1_02.vcxproj -> C:\Users\Win7\Desktop\Repositorio\Actividades-SDL-2018\Actividades SLN\\bin\x64Debug\AA1_02.exe
+c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(515): warning C4553: '==': result of expression not used; did you intend '='?
+c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(17): warning C4297: 'SDL_main': function assumed not to throw an exception but does
+  c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(17): note: __declspec(nothrow), throw(), noexcept(true), or noexcept was specified on the function
+c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(22): warning C4297: 'SDL_main': function assumed not to throw an exception but does
+  c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(22): note: __declspec(nothrow), throw(), noexcept(true), or noexcept was specified on the function
+c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(27): warning C4297: 'SDL_main': function assumed not to throw an exception but does
+  c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(27): note: __declspec(nothrow), throw(), noexcept(true), or noexcept was specified on the function
+c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(31): warning C4297: 'SDL_main': function assumed not to throw an exception but does
+  c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(31): note: __declspec(nothrow), throw(), noexcept(true), or noexcept was specified on the function
+c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(34): warning C4297: 'SDL_main': function assumed not to throw an exception but does
+  c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(34): note: __declspec(nothrow), throw(), noexcept(true), or noexcept was specified on the function
+c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(38): warning C4297: 'SDL_main': function assumed not to throw an exception but does
+  c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(38): note: __declspec(nothrow), throw(), noexcept(true), or noexcept was specified on the function
+c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(51): warning C4297: 'SDL_main': function assumed not to throw an exception but does
+  c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(51): note: __declspec(nothrow), throw(), noexcept(true), or noexcept was specified on the function
+c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(56): warning C4297: 'SDL_main': function assumed not to throw an exception but does
+  c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(56): note: __declspec(nothrow), throw(), noexcept(true), or noexcept was specified on the function
+c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(65): warning C4297: 'SDL_main': function assumed not to throw an exception but does
+  c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(65): note: __declspec(nothrow), throw(), noexcept(true), or noexcept was specified on the function
+c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(75): warning C4297: 'SDL_main': function assumed not to throw an exception but does
+  c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(75): note: __declspec(nothrow), throw(), noexcept(true), or noexcept was specified on the function
+c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(77): warning C4297: 'SDL_main': function assumed not to throw an exception but does
+  c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(77): note: __declspec(nothrow), throw(), noexcept(true), or noexcept was specified on the function
+c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(132): warning C4297: 'SDL_main': function assumed not to throw an exception but does
+  c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(132): note: __declspec(nothrow), throw(), noexcept(true), or noexcept was specified on the function
+c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(146): warning C4297: 'SDL_main': function assumed not to throw an exception but does
+  c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(146): note: __declspec(nothrow), throw(), noexcept(true), or noexcept was specified on the function
+c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(159): warning C4297: 'SDL_main': function assumed not to throw an exception but does
+  c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(159): note: __declspec(nothrow), throw(), noexcept(true), or noexcept was specified on the function
+c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(193): warning C4297: 'SDL_main': function assumed not to throw an exception but does
+  c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(193): note: __declspec(nothrow), throw(), noexcept(true), or noexcept was specified on the function
+c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(247): warning C4297: 'SDL_main': function assumed not to throw an exception but does
+  c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(247): note: __declspec(nothrow), throw(), noexcept(true), or noexcept was specified on the function
+c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(519): warning C4297: 'SDL_main': function assumed not to throw an exception but does
+  c:\users\cristopher.mendoza\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(519): note: __declspec(nothrow), throw(), noexcept(true), or noexcept was specified on the function
+  AA1_02.vcxproj -> C:\Users\Cristopher.Mendoza\Desktop\Repositorio\Actividades-SDL-2018\Actividades SLN\\bin\x64Debug\AA1_02.exe
