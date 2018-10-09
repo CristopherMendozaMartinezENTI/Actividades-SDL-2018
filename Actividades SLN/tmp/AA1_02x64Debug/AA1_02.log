@@ -1,6 +1,6 @@
 ﻿  0 archivo(s) copiado(s)
   SDL_AA1_02.cpp
-c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(445): warning C4553: '==': el operador no tiene efecto; ¿ha pensado en '='?
+c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(506): warning C4553: '==': el operador no tiene efecto; ¿ha pensado en '='?
 c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(30): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
   c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(30): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
 c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(35): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
@@ -31,10 +31,10 @@ c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_0
   c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(172): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
 c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(201): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
   c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(201): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
-c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(220): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
-  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(220): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
-c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(448): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
-  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(448): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
-c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(450): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
-  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(450): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
+c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(255): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
+  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(255): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
+c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(509): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
+  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(509): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
+c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(511): warning C4297: 'SDL_main': se suponía que la función no producía una excepción, pero lo hace
+  c:\users\win7\desktop\repositorio\actividades-sdl-2018\actividades sln\src\aa1_02\sdl_aa1_02.cpp(511): note: __declspec(nothrow), throw(), noexcept(true) o noexcept se han especificado en la función
   AA1_02.vcxproj -> C:\Users\Win7\Desktop\Repositorio\Actividades-SDL-2018\Actividades SLN\\bin\x64Debug\AA1_02.exe

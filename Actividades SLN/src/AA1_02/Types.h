@@ -17,7 +17,8 @@ struct Player
 {
 	//Directions
 	int score;
+	bool getCoins;
 	bool goUp, goDown, goLeft, goRight;
-	Player() :score{ 0 }, goUp { false }, goDown{ false }, goRight{ false }, goLeft{ false } {};
+	Player() :score{ 0 }, getCoins{ false }, goUp { false }, goDown{ false }, goRight{ false }, goLeft{ false } {};
 };
 

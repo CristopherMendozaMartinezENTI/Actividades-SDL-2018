@@ -145,12 +145,12 @@ int main(int, char*[])
 	if (inGameFont == nullptr) throw "No es pot inicialitzar SDL_ttf";
 	tmpSurf = { TTF_RenderText_Blended(inGameFont, "PlayerOne: ", SDL_Color{ 0,0,0}) };
 	SDL_Texture *player1ScoreTexture{ SDL_CreateTextureFromSurface(m_renderer, tmpSurf) };
-	SDL_Rect player1ScoreRect{ 50, 50, tmpSurf->w, tmpSurf->h };
+	SDL_Rect player1ScoreRect{ 50, 30, tmpSurf->w, tmpSurf->h };
 
 	//Player 1 puntuation
 	tmpSurf = { TTF_RenderText_Blended(inGameFont, "PlayerTwo: ", SDL_Color{ 0,0,0}) };
 	SDL_Texture *player2ScoreTexture{ SDL_CreateTextureFromSurface(m_renderer, tmpSurf) };
-	SDL_Rect player2ScoreRect{ 50, 110, tmpSurf->w, tmpSurf->h };
+	SDL_Rect player2ScoreRect{ 50, 120, tmpSurf->w, tmpSurf->h };
 #pragma endregion
 
 #pragma region Coins
@@ -196,21 +196,56 @@ int main(int, char*[])
 	int frameTimeSprite1 = 0;
 	int frameTimeSprite2 = 0;
 
-	//Puntuación 
-	SDL_Texture *scoreTexture{ IMG_LoadTexture(m_renderer, "../../res/img/num.png") };
-	if (scoreTexture == nullptr) throw "Error: bgTexture init";
-	int scoreWidth, scoretextHeight, frameWidthScore, frameHeightScore;
-	SDL_QueryTexture(scoreTexture, NULL, NULL, &scoreWidth, &scoretextHeight);
-	SDL_Rect scoreRect, scorePosition;
-	frameWidthScore = scoreWidth / 10;
-	frameHeightScore = scoretextHeight;
-	scoreRect.x = 500;
-	scoreRect.y = 30;
-	scorePosition.w = scoreRect.w = frameWidthScore;
-	scorePosition.h = scoreRect.h = frameHeightScore;
+	//Puntuación Player 1
+	SDL_Texture *scoreTexture1{ IMG_LoadTexture(m_renderer, "../../res/img/num.png") };
+	if (scoreTexture1 == nullptr) throw "Error: bgTexture init";
+	int scoreWidth, scoreHeight, frameWidthScore1Right, frameHeightScore1Right;
+	SDL_QueryTexture(scoreTexture1, NULL, NULL, &scoreWidth, &scoreHeight);
+		//Right
+	SDL_Rect scoreRectPlayer1Right, scorePositionPlayer1Right;
+	frameWidthScore1Right = scoreWidth / 10 ;
+	frameHeightScore1Right = scoreHeight / 1;
+	scorePositionPlayer1Right.x = 600;
+	scorePositionPlayer1Right.y = 10;
+	scoreRectPlayer1Right.x = scoreRectPlayer1Right.y = 0;
+	scorePositionPlayer1Right.w = scoreRectPlayer1Right.w = frameWidthScore1Right;
+	scorePositionPlayer1Right.h = scoreRectPlayer1Right.h = frameHeightScore1Right;
+	int frameTimeScore1Right = 0;
+		//Left
+	SDL_Rect scoreRectPlayer1Left, scorePositionPlayer1Left;
+	int frameWidthScore1Left, frameHeightScore1Left;
+	frameWidthScore1Left = scoreWidth / 10;
+	frameHeightScore1Left = scoreHeight / 1;
+	scorePositionPlayer1Left.x = 500;
+	scorePositionPlayer1Left.y = 10;
+	scoreRectPlayer1Left.x = scoreRectPlayer1Left.y = 0;
+	scorePositionPlayer1Left.w = scoreRectPlayer1Left.w = frameWidthScore1Left;
+	scorePositionPlayer1Left.h = scoreRectPlayer1Left.h = frameHeightScore1Left;
+	int frameTimeScore1Left = 0;
 
-	int frameTimeScore = 0;
-
+	//Puntuación Player 2
+		//Right
+	SDL_Rect scoreRectPlayer2Right, scorePositionPlayer2Right;
+	int frameWidthScore2Right, frameHeightScore2Right;
+	frameWidthScore2Right = scoreWidth / 10;
+	frameHeightScore2Right = scoreHeight / 1;
+	scorePositionPlayer2Right.x = 600;
+	scorePositionPlayer2Right.y = 95;
+	scoreRectPlayer2Right.x = scoreRectPlayer2Right.y = 0;
+	scorePositionPlayer2Right.w = scoreRectPlayer2Right.w = frameWidthScore2Right;
+	scorePositionPlayer2Right.h = scoreRectPlayer2Right.h = frameHeightScore2Right;
+	int frameTimeScore2Right = 0;
+		//Left
+	SDL_Rect scoreRectPlayer2Left, scorePositionPlayer2Left;
+	int frameWidthScore2Left, frameHeightScore2Left;
+	frameWidthScore2Left = scoreWidth / 10;
+	frameHeightScore2Left = scoreHeight / 1;
+	scorePositionPlayer2Left.x = 500;
+	scorePositionPlayer2Left.y = 95;
+	scoreRectPlayer2Left.x = scoreRectPlayer2Left.y = 0;
+	scorePositionPlayer2Left.w = scoreRectPlayer2Left.w = frameWidthScore2Left;
+	scorePositionPlayer2Left.h = scoreRectPlayer2Left.h = frameHeightScore2Left;
+	int frameTimeScore2Left = 0;
 
 #pragma endregion
 
@@ -415,19 +450,44 @@ int main(int, char*[])
 	}
 	
 	//Ganará siempre el jugador 1 en el caso de que ambos cojan el mismo saco de oro al mismo tiempo
-	for (int i = 0; i < AMOUNT_OF_COINS; i++)
-	{
-		if (rectCollision(player1Position, coinRect[i])) {
-			coinRect[i].x = (rand() % SCREEN_WIDTH) - 50;
-			coinRect[i].y = (rand() % 700) + 300;
-			player1.score++;
+		for (int i = 0; i < AMOUNT_OF_COINS; i++)
+		{
+			if (rectCollision(player1Position, coinRect[i])) {
+				coinRect[i].x = (rand() % SCREEN_WIDTH) - 50;
+				coinRect[i].y = (rand() % 700) + 300;
+				player1.score++;
+				player1.getCoins = true;
+				
+			}
+			else if (rectCollision(player2Position, coinRect[i])) {
+					coinRect[i].x = (rand() % SCREEN_WIDTH) - 50;
+					coinRect[i].y = (rand() % 700) + 300;
+					player2.score++;
+					player2.getCoins = true;
+
+			}
+			
 		}
-		else if (rectCollision(player2Position, coinRect[i])) {
-			coinRect[i].x = (rand() % SCREEN_WIDTH) - 50;
-			coinRect[i].y = (rand() % 700) + 300;
-			player2.score++;
+
+		if (player1.getCoins) {
+			frameTimeScore1Right++;
+			if (FPS / frameTimeScore1Right <= 9) {
+				player1.getCoins = false;
+				frameTimeScore1Right = 0;
+				scoreRectPlayer1Right.x += frameWidthScore1Right;
+				if (scoreRectPlayer1Right.x >= (scoreWidth)) scoreRectPlayer1Right.x = 0;
+			}
 		}
-	}
+
+		if (player2.getCoins) {
+			frameTimeScore2Right++;
+			if (FPS / frameTimeScore2Right <= 9) {
+				player2.getCoins = false;
+				frameTimeScore2Right = 0;
+				scoreRectPlayer2Right.x += frameWidthScore2Right;
+				if (scoreRectPlayer2Right.x >= (scoreWidth)) scoreRectPlayer2Right.x = 0;
+			}
+		}
 	
 
 #pragma endregion 
@@ -491,7 +551,10 @@ int main(int, char*[])
 			//Score Board
 			SDL_RenderCopy(m_renderer, player1ScoreTexture, nullptr, &player1ScoreRect);
 			SDL_RenderCopy(m_renderer, player2ScoreTexture, nullptr, &player2ScoreRect);
-			SDL_RenderCopy(m_renderer, scoreTexture, nullptr, &scoreRect);
+			SDL_RenderCopy(m_renderer, scoreTexture1, &scoreRectPlayer1Right, &scorePositionPlayer1Right);
+			SDL_RenderCopy(m_renderer, scoreTexture1, &scoreRectPlayer2Right, &scorePositionPlayer2Right);
+			SDL_RenderCopy(m_renderer, scoreTexture1, &scoreRectPlayer1Left, &scorePositionPlayer1Left);
+			SDL_RenderCopy(m_renderer, scoreTexture1, &scoreRectPlayer2Left, &scorePositionPlayer2Left);
 			}
 			break;
 		default:
