@@ -12,6 +12,7 @@
 #define FPS  60
 #define DELAY_TIME 1000.0f / FPS
 #define MAX_TIME 60000
+#define AMOUNT_OF_COINS 20
 
 enum gameStates {
 	MENU,
@@ -77,17 +78,18 @@ int main(int, char*[])
 	if (cursorTexture == nullptr) throw "Error: platerTexture init";
 	SDL_Rect cursorRect{ 0, 0, 350, 190 };
 	SDL_Rect cursorTarget{ 0, 0, 100, 100 };
+
 #pragma endregion
 
 #pragma region Title Text
 
 	//Title Text
-	TTF_Font *font{ TTF_OpenFont("../../res/ttf/saiyan.ttf", 80) };
+	TTF_Font *font{ TTF_OpenFont("../../res/ttf/saiyan.ttf", 200) };
 	if (font == nullptr) throw "No es pot inicialitzar SDL_ttf";
-	SDL_Surface *tmpSurf{ TTF_RenderText_Blended(font, "Coins Rampage", SDL_Color{255,128,0,0}) };
+	SDL_Surface *tmpSurf{ TTF_RenderText_Blended(font, "Coins Rampage", SDL_Color{255,210,10,0}) };
 	if (tmpSurf == nullptr) throw "No es pot crear SDL surface";
 	SDL_Texture *titleTexture{ SDL_CreateTextureFromSurface(m_renderer, tmpSurf) };
-	SDL_Rect titleRect{ (SCREEN_WIDTH - tmpSurf->w) / 2, 50, tmpSurf->w, tmpSurf->h };
+	SDL_Rect titleRect{ (SCREEN_WIDTH - tmpSurf->w) / 2, 200, tmpSurf->w, tmpSurf->h };
 
 #pragma endregion
 
@@ -96,8 +98,8 @@ int main(int, char*[])
 	//Play Button (Menu)
 	tmpSurf = { TTF_RenderText_Blended(font, "Play", SDL_Color{ 255,128,0,0 }) };
 	SDL_Texture *playTexture{ SDL_CreateTextureFromSurface(m_renderer, tmpSurf) };
-	SDL_Rect playButtonRect{ (SCREEN_WIDTH - tmpSurf->w) / 2, 500, tmpSurf->w, tmpSurf->h };
-	tmpSurf = { TTF_RenderText_Blended(font, "Play", SDL_Color{ 255,255,255,0 }) };
+	SDL_Rect playButtonRect{ (SCREEN_WIDTH - tmpSurf->w) / 2, 400, tmpSurf->w, tmpSurf->h };
+	tmpSurf = { TTF_RenderText_Blended(font, "Play", SDL_Color{ 255,0,0,0 }) };
 	SDL_Texture *playHover{ SDL_CreateTextureFromSurface(m_renderer, tmpSurf) };
 	SDL_Texture *playAux{ SDL_CreateTextureFromSurface(m_renderer, tmpSurf) };
 
@@ -108,8 +110,8 @@ int main(int, char*[])
 	//Sound Off Button (Menu)
 	tmpSurf= { TTF_RenderText_Blended(font, "Sound Off", SDL_Color{ 255,128,0,0 }) };
 	SDL_Texture *soundOffTexture{ SDL_CreateTextureFromSurface(m_renderer, tmpSurf) };
-	SDL_Rect soundButtonRect{ (SCREEN_WIDTH - tmpSurf->w) / 2, 700, tmpSurf->w, tmpSurf->h };
-	tmpSurf = { TTF_RenderText_Blended(font, "Sound Off", SDL_Color{ 255,255,255,0 }) };
+	SDL_Rect soundButtonRect{ (SCREEN_WIDTH - tmpSurf->w) / 2, 600, tmpSurf->w, tmpSurf->h };
+	tmpSurf = { TTF_RenderText_Blended(font, "Sound Off", SDL_Color{ 255,0,0,0 }) };
 	SDL_Texture *soundOffHover{ SDL_CreateTextureFromSurface(m_renderer, tmpSurf) };
 	SDL_Texture *soundOffAux{ SDL_CreateTextureFromSurface(m_renderer, tmpSurf) };
 
@@ -120,7 +122,7 @@ int main(int, char*[])
 	//Sound On Button (Menu)
 	tmpSurf = { TTF_RenderText_Blended(font, "Sound On", SDL_Color{ 255,128,0,0 }) };
 	SDL_Texture *soundOnTexture{ SDL_CreateTextureFromSurface(m_renderer, tmpSurf) };
-	tmpSurf = { TTF_RenderText_Blended(font, "Sound On", SDL_Color{ 255,255,255,0 }) };
+	tmpSurf = { TTF_RenderText_Blended(font, "Sound On", SDL_Color{ 255,0,0,0 }) };
 	SDL_Texture *soundOnHover{ SDL_CreateTextureFromSurface(m_renderer, tmpSurf) };
 
 #pragma endregion
@@ -130,8 +132,8 @@ int main(int, char*[])
 	//Exit Button (Menu)
 	tmpSurf = { TTF_RenderText_Blended(font, "Exit", SDL_Color{ 255,128,0,0 }) };
 	SDL_Texture *exitTexture{ SDL_CreateTextureFromSurface(m_renderer, tmpSurf) };
-	SDL_Rect exitButtonRect{ (SCREEN_WIDTH - tmpSurf->w) / 2, 900, tmpSurf->w, tmpSurf->h };
-	tmpSurf = { TTF_RenderText_Blended(font, "Exit", SDL_Color{ 255,255,255,0 }) };
+	SDL_Rect exitButtonRect{ (SCREEN_WIDTH - tmpSurf->w) / 2, 800, tmpSurf->w, tmpSurf->h };
+	tmpSurf = { TTF_RenderText_Blended(font, "Exit", SDL_Color{ 255,0,0,0 }) };
 	SDL_Texture *exitHover{ SDL_CreateTextureFromSurface(m_renderer, tmpSurf) };
 	SDL_Texture *exitAux{ SDL_CreateTextureFromSurface(m_renderer, tmpSurf) };
 
@@ -139,20 +141,35 @@ int main(int, char*[])
 
 #pragma region Score Boards
 	//Player 1 puntuation
-	tmpSurf = { TTF_RenderText_Blended(font, "PlayerOne: ", SDL_Color{ 0,0,0}) };
+	TTF_Font *inGameFont{ TTF_OpenFont("../../res/ttf/SuperMario256.ttf", 60) };
+	if (inGameFont == nullptr) throw "No es pot inicialitzar SDL_ttf";
+	tmpSurf = { TTF_RenderText_Blended(inGameFont, "PlayerOne: ", SDL_Color{ 0,0,0}) };
 	SDL_Texture *player1ScoreTexture{ SDL_CreateTextureFromSurface(m_renderer, tmpSurf) };
 	SDL_Rect player1ScoreRect{ 50, 50, tmpSurf->w, tmpSurf->h };
 
 	//Player 1 puntuation
-	tmpSurf = { TTF_RenderText_Blended(font, "PlayerTwo: ", SDL_Color{ 0,0,0}) };
+	tmpSurf = { TTF_RenderText_Blended(inGameFont, "PlayerTwo: ", SDL_Color{ 0,0,0}) };
 	SDL_Texture *player2ScoreTexture{ SDL_CreateTextureFromSurface(m_renderer, tmpSurf) };
 	SDL_Rect player2ScoreRect{ 50, 110, tmpSurf->w, tmpSurf->h };
 #pragma endregion
 
+#pragma region Coins
+
+	SDL_Texture *coinTexture{ IMG_LoadTexture(m_renderer, "../../res/img/gold.png") };
+	if (coinTexture == nullptr) throw "Error: bgTexture init";
+	SDL_Rect coinRect[AMOUNT_OF_COINS];
+	for (int i = 0; i < AMOUNT_OF_COINS; i++) 
+		coinRect[i] = SDL_Rect{ (rand() % SCREEN_WIDTH) - 50, (rand() % 700)+300, 100,100 };
+	
+
+#pragma endregion
+
 #pragma region Animated Sprites
+
 //-->Animated Sprite ---
 	//Player1
 	SDL_Texture *playerTexture{ IMG_LoadTexture(m_renderer, "../../res/img/spCastle.png") };
+	if (playerTexture == nullptr) throw "Error: bgTexture init";
 	int textWidth, textHeight, frameWidth1, frameHeight1;
 	SDL_QueryTexture(playerTexture, NULL, NULL, &textWidth, &textHeight);
 	SDL_Rect player1Rect, player1Position;
@@ -178,6 +195,21 @@ int main(int, char*[])
 
 	int frameTimeSprite1 = 0;
 	int frameTimeSprite2 = 0;
+
+	//Puntuación 
+	SDL_Texture *scoreTexture{ IMG_LoadTexture(m_renderer, "../../res/img/num.png") };
+	if (scoreTexture == nullptr) throw "Error: bgTexture init";
+	int scoreWidth, scoretextHeight, frameWidthScore, frameHeightScore;
+	SDL_QueryTexture(scoreTexture, NULL, NULL, &scoreWidth, &scoretextHeight);
+	SDL_Rect scoreRect, scorePosition;
+	frameWidthScore = scoreWidth / 10;
+	frameHeightScore = scoretextHeight;
+	scoreRect.x = 500;
+	scoreRect.y = 30;
+	scorePosition.w = scoreRect.w = frameWidthScore;
+	scorePosition.h = scoreRect.h = frameHeightScore;
+
+	int frameTimeScore = 0;
 
 
 #pragma endregion
@@ -233,20 +265,19 @@ int main(int, char*[])
 				if (event.key.keysym.sym == SDLK_d) player2.goRight = true;
 				if (event.key.keysym.sym == SDLK_a) player2.goLeft = true;
 				if (player2.goUp || player2.goDown || player2.goRight || player2.goLeft) player2OnMove = true;
-
 				break;
 			case SDL_KEYUP:
 				if (event.key.keysym.sym == SDLK_UP) player1.goUp = false;
 				if (event.key.keysym.sym == SDLK_DOWN) player1.goDown = false;
 				if (event.key.keysym.sym == SDLK_RIGHT) player1.goRight = false;
 				if (event.key.keysym.sym == SDLK_LEFT) player1.goLeft = false;
-				if (!player1.goUp || !player1.goDown || !player1.goRight || !player1.goLeft) player1OnMove = false;
+				if (!player1.goUp && !player1.goDown && !player1.goRight && !player1.goLeft) player1OnMove = false;
 
 				if (event.key.keysym.sym == SDLK_w) player2.goUp = false;
 				if (event.key.keysym.sym == SDLK_s) player2.goDown = false;
 				if (event.key.keysym.sym == SDLK_d) player2.goRight = false;
 				if (event.key.keysym.sym == SDLK_a) player2.goLeft = false;
-				if (!player2.goUp || !player2.goDown || !player2.goRight || !player2.goLeft) player2OnMove = false;
+				if (!player2.goUp && !player2.goDown && !player2.goRight && !player2.goLeft) player2OnMove = false;
 				break;
 			case SDL_MOUSEMOTION:
 				mouseAxis.x = event.motion.x;
@@ -306,6 +337,103 @@ int main(int, char*[])
 		}
 		else exitAux = exitTexture;
 
+#pragma endregion
+
+		//Putting the Mouse at the center of the cursor 
+		cursorTarget.x = mouseAxis.x - 150;
+		cursorTarget.y = mouseAxis.y - 90;
+		//Linear interpolation to make the cursor movement more smooth
+		cursorRect.x += (cursorTarget.x - cursorRect.x) / 5;
+		cursorRect.y += (cursorTarget.y - cursorRect.y) / 5;
+
+#pragma region Players Animations, Movement and Score
+
+		//Movement
+		if (state == INGAME){
+			//Player 1 
+			if (player1OnMove) {
+				if (player1.goUp && player1Position.y > 300) {
+					player1Position.x += 0 * speedMovement;
+					player1Position.y += -1 * speedMovement;
+					player1Rect.y = frameHeight1 * 3;
+				}
+				if (player1.goDown && player1Position.y < SCREEN_HEIGHT - 30) {
+					player1Position.x += 0 * speedMovement;
+					player1Position.y += 1 * speedMovement;
+					player1Rect.y = frameHeight1 * 0;
+				}
+				if (player1.goRight && player1Position.x < SCREEN_WIDTH - 30) {
+					player1Position.x += 1 * speedMovement;
+					player1Position.y += 0 * speedMovement;
+					player1Rect.y = frameHeight1 * 2;
+				}
+				if (player1.goLeft && player1Position.x > 0) {
+					player1Position.x += -1 * speedMovement;
+					player1Position.y += 0 * speedMovement;
+					player1Rect.y = frameHeight1 * 1;
+				}
+
+				frameTimeSprite1++;
+				if (FPS / frameTimeSprite1 <= 9)
+				{
+					frameTimeSprite1 = 0;
+					player1Rect.x += frameWidth1;
+					if (player1Rect.x >= (frameWidth1 * 6)) player1Rect.x = frameWidth1 * 3;
+				}
+			}
+
+		//Player 2 
+		if (player2OnMove) {
+			if (player2.goUp && player2Position.y > 300) {
+				player2Position.x += 0 * speedMovement;
+				player2Position.y += -1 * speedMovement;
+				player2Rect.y = frameHeight2 * 3;
+			}
+			if (player2.goDown && player2Position.y < SCREEN_HEIGHT - 30) {
+				player2Position.x += 0 * speedMovement;
+				player2Position.y += 1 * speedMovement;
+				player2Rect.y = frameHeight2 * 0;
+			}
+			if (player2.goRight&& player2Position.x < SCREEN_WIDTH - 30) {
+				player2Position.x += 1 * speedMovement;
+				player2Position.y += 0 * speedMovement;
+				player2Rect.y = frameHeight2 * 2;
+			}
+			if (player2.goLeft && player2Position.x > 0) {
+				player2Position.x += -1 * speedMovement;
+				player2Position.y += 0 * speedMovement;
+				player2Rect.y = frameHeight2 * 1;
+			}
+			frameTimeSprite2++;
+			if (FPS / frameTimeSprite2 <= 9)
+			{
+				frameTimeSprite2 = 0;
+				player2Rect.x += frameWidth2;
+				if (player2Rect.x >= (frameWidth2 * 3)) player2Rect.x = 0;
+			}
+		}
+	}
+	
+	//Ganará siempre el jugador 1 en el caso de que ambos cojan el mismo saco de oro al mismo tiempo
+	for (int i = 0; i < AMOUNT_OF_COINS; i++)
+	{
+		if (rectCollision(player1Position, coinRect[i])) {
+			coinRect[i].x = (rand() % SCREEN_WIDTH) - 50;
+			coinRect[i].y = (rand() % 700) + 300;
+			player1.score++;
+		}
+		else if (rectCollision(player2Position, coinRect[i])) {
+			coinRect[i].x = (rand() % SCREEN_WIDTH) - 50;
+			coinRect[i].y = (rand() % 700) + 300;
+			player2.score++;
+		}
+	}
+	
+
+#pragma endregion 
+
+#pragma region Time
+
 		//Time 
 		sec += DELAY_TIME;
 		if (sec >= MAX_TIME) state = MENU;
@@ -318,86 +446,13 @@ int main(int, char*[])
 			if (exactTime[i] == '.') exactTime[i] == ':';
 		}
 
-		TTF_Font *timeFont{ TTF_OpenFont("../../res/ttf/SuperMario256.ttf", 80) };
 		if (font == nullptr) throw "No es pot inicialitzar SDL_ttf";
-		SDL_Surface *tmpSurf{ TTF_RenderText_Blended(timeFont, exactTime, SDL_Color{255,0,0,0}) };
+		SDL_Surface *tmpSurf{ TTF_RenderText_Blended(inGameFont, exactTime, SDL_Color{ 255,0,0,0 }) };
 		if (tmpSurf == nullptr) throw "No es pot crear SDL surface";
 		SDL_Texture *timeTexture{ SDL_CreateTextureFromSurface(m_renderer, tmpSurf) };
 		SDL_Rect timeRect{ 1700, 70, tmpSurf->w, tmpSurf->h };
 
-
-#pragma endregion
-
-		//Putting the Mouse at the center of the cursor 
-		cursorTarget.x = mouseAxis.x - 150;
-		cursorTarget.y = mouseAxis.y - 90;
-		//Linear interpolation to make the cursor movement more smooth
-		cursorRect.x += (cursorTarget.x - cursorRect.x) / 5;
-		cursorRect.y += (cursorTarget.y - cursorRect.y) / 5;
-
-		//Player Movement
-		if (state == INGAME) {
-			//Player 1 
-			if (player1.goUp) {
-				player1Position.x += 0 * speedMovement;
-				player1Position.y += -1 * speedMovement;
-				player1Rect.y = frameHeight1 * 3;
-			}
-			if (player1.goDown) {
-				player1Position.x += 0 * speedMovement;
-				player1Position.y += 1 * speedMovement;
-				player1Rect.y = frameHeight1 * 0;
-			}
-			if (player1.goRight) {
-				player1Position.x += 1 * speedMovement;
-				player1Position.y += 0 * speedMovement;
-				player1Rect.y = frameHeight1 * 2;
-			}
-			if (player1.goLeft) {
-				player1Position.x += -1 * speedMovement;
-				player1Position.y += 0 * speedMovement;
-				player1Rect.y = frameHeight1 * 1;
-			}
-
-			//Player 2 
-			if (player2.goUp) {
-				player2Position.x += 0 * speedMovement;
-				player2Position.y += -1 * speedMovement;
-				player2Rect.y = frameHeight2 * 3;
-			}
-			if (player2.goDown) {
-				player2Position.x += 0 * speedMovement;
-				player2Position.y += 1 * speedMovement;
-				player2Rect.y = frameHeight2 * 0;
-			}
-			if (player2.goRight) {
-				player2Position.x += 1 * speedMovement;
-				player2Position.y += 0 * speedMovement;
-				player2Rect.y = frameHeight2 * 2;
-			}
-			if (player2.goLeft) {
-				player2Position.x += -1 * speedMovement;
-				player2Position.y += 0 * speedMovement;
-				player2Rect.y = frameHeight2 * 1;
-			}
-		}
-
-		//Player Sprite Movement
-	    frameTimeSprite1++;
-		if (FPS / frameTimeSprite1 <= 9 && player1OnMove)
-		{
-			frameTimeSprite1 = 0;
-		    player1Rect.x += frameWidth1;
-			if (player1Rect.x >= (frameWidth1*6)) player1Rect.x = frameWidth1*3;
-		}
-
-		frameTimeSprite2++;
-		if (FPS / frameTimeSprite2 <= 9 && player2OnMove)
-		{
-			frameTimeSprite2 = 0;
-			player2Rect.x += frameWidth2;
-			if (player2Rect.x >= (frameWidth2*3)) player2Rect.x = 0;
-		}
+#pragma endregion 
 
 		// --- DRAW ---
 		SDL_RenderClear(m_renderer);
@@ -427,11 +482,17 @@ int main(int, char*[])
 			SDL_RenderCopy(m_renderer, playerTexture, &player1Rect, &player1Position);
 			//Animated Player2 Sprite
 			SDL_RenderCopy(m_renderer, playerTexture, &player2Rect, &player2Position);
+			
+			//Coins
+			for (int i = 0; i < AMOUNT_OF_COINS; i++) {
+				SDL_RenderCopy(m_renderer, coinTexture, nullptr, &coinRect[i]);
 			//Time
 			SDL_RenderCopy(m_renderer, timeTexture, nullptr, &timeRect);
 			//Score Board
 			SDL_RenderCopy(m_renderer, player1ScoreTexture, nullptr, &player1ScoreRect);
 			SDL_RenderCopy(m_renderer, player2ScoreTexture, nullptr, &player2ScoreRect);
+			SDL_RenderCopy(m_renderer, scoreTexture, nullptr, &scoreRect);
+			}
 			break;
 		default:
 			break;
@@ -457,6 +518,8 @@ int main(int, char*[])
 		SDL_DestroyTexture(soundOffTexture);
 		SDL_DestroyTexture(soundOnTexture);
 		SDL_DestroyTexture(exitTexture);
+		SDL_DestroyTexture(playerTexture);
+		SDL_DestroyTexture(player1ScoreTexture);
 		SDL_FreeSurface(tmpSurf);
 		TTF_CloseFont(font);
 		Mix_CloseAudio();
@@ -465,7 +528,7 @@ int main(int, char*[])
 		SDL_DestroyRenderer(m_renderer);
 		SDL_DestroyWindow(m_window);
 		SDL_Quit();
-		Mix_Quit();
+		Mix_Quit();	
 
 #pragma endregion 
 
