@@ -3,7 +3,7 @@
 #define SCREEN_HEIGHT 1080
 #define FPS  60
 #define DELAY_TIME 1000.0f / FPS
-#define MAX_TIME 10000
+#define MAX_TIME 60000
 #define AMOUNT_OF_COINS 10
 #define PLAYER_SIZE 2
 #define MOTION_SPEED 5
