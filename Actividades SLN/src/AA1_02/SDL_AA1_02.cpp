@@ -200,12 +200,23 @@ int main(int, char*[])
 		SDL_Rect scoreRectPlayer1Right, scorePositionPlayer1Right;
 		frameWidthScore1Right = scoreWidth / 10;
 		frameHeightScore1Right = scoreHeight / 1;
-		scorePositionPlayer1Right.x = 550;
+		scorePositionPlayer1Right.x = 650;
 		scorePositionPlayer1Right.y = 40;
 		scoreRectPlayer1Right.x = scoreRectPlayer1Right.y = 0;
 		scorePositionPlayer1Right.w = scoreRectPlayer1Right.w = frameWidthScore1Right;
 		scorePositionPlayer1Right.h = scoreRectPlayer1Right.h = frameHeightScore1Right;
 		int frameTimeScore1Right = 0;
+		//Center
+		SDL_Rect scoreRectPlayer1Center, scorePositionPlayer1Center;
+		int frameWidthScore1Center, frameHeightScore1Center;
+		frameWidthScore1Center = scoreWidth / 10;
+		frameHeightScore1Center = scoreHeight / 1;
+		scorePositionPlayer1Center.x = 550;
+		scorePositionPlayer1Center.y = 40;
+		scoreRectPlayer1Center.x = scoreRectPlayer1Center.y = 0;
+		scorePositionPlayer1Center.w = scoreRectPlayer1Center.w = frameWidthScore1Center;
+		scorePositionPlayer1Center.h = scoreRectPlayer1Center.h = frameHeightScore1Center;
+		int frameTimeScore1Center = 0;
 		//Left
 		SDL_Rect scoreRectPlayer1Left, scorePositionPlayer1Left;
 		int frameWidthScore1Left, frameHeightScore1Left;
@@ -224,12 +235,23 @@ int main(int, char*[])
 		int frameWidthScore2Right, frameHeightScore2Right;
 		frameWidthScore2Right = scoreWidth / 10;
 		frameHeightScore2Right = scoreHeight / 1;
-		scorePositionPlayer2Right.x = 550;
+		scorePositionPlayer2Right.x = 650;
 		scorePositionPlayer2Right.y = 130;
 		scoreRectPlayer2Right.x = scoreRectPlayer2Right.y = 0;
 		scorePositionPlayer2Right.w = scoreRectPlayer2Right.w = frameWidthScore2Right;
 		scorePositionPlayer2Right.h = scoreRectPlayer2Right.h = frameHeightScore2Right;
 		int frameTimeScore2Right = 0;
+		//Center
+		SDL_Rect scoreRectPlayer2Center, scorePositionPlayer2Center;
+		int frameWidthScore2Center, frameHeightScore2Center;
+		frameWidthScore2Center = scoreWidth / 10;
+		frameHeightScore2Center = scoreHeight / 1;
+		scorePositionPlayer2Center.x = 550;
+		scorePositionPlayer2Center.y = 130;
+		scoreRectPlayer2Center.x = scoreRectPlayer2Center.y = 0;
+		scorePositionPlayer2Center.w = scoreRectPlayer2Center.w = frameWidthScore2Center;
+		scorePositionPlayer2Center.h = scoreRectPlayer2Center.h = frameHeightScore2Center;
+		int frameTimeScore2Center = 0;
 		//Left
 		SDL_Rect scoreRectPlayer2Left, scorePositionPlayer2Left;
 		int frameWidthScore2Left, frameHeightScore2Left;
@@ -345,8 +367,10 @@ int main(int, char*[])
 					player2Position.y = 800;
 					player2Rect.x = player2Rect.y = 0;
 					scoreRectPlayer1Right.x = 0;
+					scoreRectPlayer1Center.x = 0;
 					scoreRectPlayer1Left.x = 0;
 					scoreRectPlayer2Right.x = 0;
+					scoreRectPlayer2Left.x = 0;
 					scoreRectPlayer2Left.x = 0;
 				}
 			}
@@ -481,12 +505,16 @@ int main(int, char*[])
 					scoreRectPlayer1Right.x += frameWidthScore1Right;
 					if (scoreRectPlayer1Right.x >= (scoreWidth)) {
 						scoreRectPlayer1Right.x = 0;
-						scoreRectPlayer1Left.x += frameWidthScore1Left;
-						if (scoreRectPlayer1Left.x >= (scoreWidth)) scoreRectPlayer1Left.x = 0;
+						scoreRectPlayer1Center.x += frameWidthScore1Center;
+						if (scoreRectPlayer1Center.x >= (scoreWidth)) {
+							scoreRectPlayer1Center.x = 0;
+							scoreRectPlayer1Right.x = 0;
+							scoreRectPlayer1Left.x += frameWidthScore1Left;
+							if (scoreRectPlayer1Left.x >= (scoreWidth)) scoreRectPlayer1Left.x = 0;
+						}
 					}
 				}
 			}
-
 
 			if (player2.getCoins) {
 				frameTimeScore2Right++;
@@ -496,12 +524,16 @@ int main(int, char*[])
 					scoreRectPlayer2Right.x += frameWidthScore2Right;
 					if (scoreRectPlayer2Right.x >= (scoreWidth)) {
 						scoreRectPlayer2Right.x = 0;
-						scoreRectPlayer2Left.x += frameWidthScore2Left;
-						if (scoreRectPlayer2Left.x >= (scoreWidth)) scoreRectPlayer2Left.x = 0;
+						scoreRectPlayer2Center.x += frameWidthScore2Center;
+						if (scoreRectPlayer2Center.x >= (scoreWidth)) {
+							scoreRectPlayer2Center.x = 0;
+							scoreRectPlayer2Right.x = 0;
+							scoreRectPlayer2Left.x += frameWidthScore2Left;
+							if (scoreRectPlayer2Left.x >= (scoreWidth)) scoreRectPlayer2Left.x = 0;
+						}
 					}
 				}
 			}
-
 
 #pragma endregion 
 
@@ -563,8 +595,10 @@ int main(int, char*[])
 					SDL_RenderCopy(m_renderer, player1ScoreTexture, nullptr, &player1ScoreRect);
 					SDL_RenderCopy(m_renderer, player2ScoreTexture, nullptr, &player2ScoreRect);
 					SDL_RenderCopy(m_renderer, scoreTexture, &scoreRectPlayer1Right, &scorePositionPlayer1Right);
-					SDL_RenderCopy(m_renderer, scoreTexture, &scoreRectPlayer2Right, &scorePositionPlayer2Right);
+					SDL_RenderCopy(m_renderer, scoreTexture, &scoreRectPlayer1Center, &scorePositionPlayer1Center);
 					SDL_RenderCopy(m_renderer, scoreTexture, &scoreRectPlayer1Left, &scorePositionPlayer1Left);
+					SDL_RenderCopy(m_renderer, scoreTexture, &scoreRectPlayer2Right, &scorePositionPlayer2Right);
+					SDL_RenderCopy(m_renderer, scoreTexture, &scoreRectPlayer2Center, &scorePositionPlayer2Center);
 					SDL_RenderCopy(m_renderer, scoreTexture, &scoreRectPlayer2Left, &scorePositionPlayer2Left);
 				}
 				break;
